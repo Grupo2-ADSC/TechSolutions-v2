@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/cssDashboard/cadastroArmazem.css">
+    <link rel="stylesheet" href="../css/cssDashboard/menuLateral.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="icon" href="../assets/iconCafe.png">
+    <title>Adicionar Armazém</title>
+</head>
+
+<body>
+
+    <div class="header">
+        <h2 class="titulo">Adicionar Armazém</h2>
+    </div>
+
+    <nav id="menuLateral">
+        <div class="container">
+            <p><img id="imgPerfil" src="../assets/imgPerf.png" alt=""></p>
+
+            <p>Bem Vindo</p>
+
+            <div class="container-itens">
+                <div class="item">
+                    <a href="#"><span class="material-symbols-outlined"> monitoring</span> Dashboard</a>
+                </div>
+
+                <div class="item">
+                    <b><a href="./armazem.html"> <span class="material-symbols-outlined">warehouse</span>
+                            Armazém</a></b>
+                </div>
+
+                <div class="item">
+                    <a href="./funcionario.html"> <span class="material-symbols-outlined">groups</span>
+                        Funcionário</a>
+                </div>
+            </div>
+
+            <div class="buttonSair">
+                <a href="#"> <span class="material-symbols-outlined">logout</span>Sair</a>
+            </div>
+
+        </div>
+    </nav>
+
+
+    <div class="quadro">
+
+        <div class="divisao">
+
+            <div class="container1">
+                <p>Número do armazém <br>
+                    <input id="numArmazem_input" placeholder=" 13" type="number"><br>
+                    <span id="alerta_numArm"></span>
+                </p>
+
+                <p>Área <br>
+                    <input id="area_input" placeholder=" 7.000" type="text"><br>
+                    <span id="alerta_area"></span>
+                </p>
+
+                <p>CEP <br>
+                    <input id="cep_input" placeholder=" 02879-130" type="text" maxlength="9"><br>
+                    <span id="alerta_cep"></span>
+                </p>
+
+                <p>Logradouro <br>
+                    <input id="logradouro_input" placeholder=" Rua Conceição" type="text"><br>
+                    <span id="alerta_logradouro"></span>
+                </p>
+
+                <p>Número <br>
+                    <input id="numero_input" placeholder=" 124" type="text" maxlength="5"><br>
+                    <span id="alerta_num"></span>
+                </p>
+
+
+
+
+            </div>
+
+            <div class="container2">
+
+                <p>Complemento <br>
+                    <input id="complemento_input" placeholder=" Ao lado do posto BR" type="text">
+                </p>
+
+                <p>Bairro <br>
+                    <input id="bairro_input" placeholder=" Jardim Ana Maria" type="text"><br>
+                    <span id="alerta_bairro"></span>
+                </p>
+
+                <p>Cidade <br>
+                    <input id="cidade_input" placeholder=" São Caetano do sul" type="text"><br>
+                    <span id="alerta_cidade"></span>
+                </p>
+
+                <p>
+                    Selecione um estado:<br>
+                    <select id="select_estado" name="estado">
+                        <option value="selecione">Selecione o estado</option>
+                        <option value="AC">Acre</option>
+                        <option value="AL">Alagoas</option>
+                        <option value="AP">Amapá</option>
+                        <option value="AM">Amazonas</option>
+                        <option value="BA">Bahia</option>
+                        <option value="CE">Ceará</option>
+                        <option value="DF">Distrito Federal</option>
+                        <option value="ES">Espírito Santo</option>
+                        <option value="GO">Goiás</option>
+                        <option value="MA">Maranhão</option>
+                        <option value="MT">Mato Grosso</option>
+                        <option value="MS">Mato Grosso do Sul</option>
+                        <option value="MG">Minas Gerais</option>
+                        <option value="PA">Pará</option>
+                        <option value="PB">Paraíba</option>
+                        <option value="PR">Paraná</option>
+                        <option value="PE">Pernambuco</option>
+                        <option value="PI">Piauí</option>
+                        <option value="RJ">Rio de Janeiro</option>
+                        <option value="RN">Rio Grande do Norte</option>
+                        <option value="RS">Rio Grande do Sul</option>
+                        <option value="RO">Rondônia</option>
+                        <option value="RR">Roraima</option>
+                        <option value="SC">Santa Catarina</option>
+                        <option value="SP">São Paulo</option>
+                        <option value="SE">Sergipe</option>
+                        <option value="TO">Tocantins</option>
+                    </select>
+                    <span id="alerta_estado"></span>
+                </p>
+            </div>
+
+        </div>
+
+        <div class="button">
+
+            <button onclick="cadastrarArmazem()" class="button_cadastrar">Cadastrar</button>
+            <button class="button_cancelar">Cancelar</button>
+
+
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>
+
+<script>
+
+    /* function cadastrar() {
+
+        var numArmazemVar = Number(numArmazem_input.value)
+        var areaVar = area_input.value
+        var cepVar = cap_input.value
+        var logradouroVar = logradouro_input.value
+        var numeroVar = numero_input.value
+        var bairroVar = bairro_input.value
+        var cidadeVar = cidade_input.value
+        var estadoVar = estado_input.value
+
+        alerta_numArm.innerHTML = "";
+        alerta_area.innerHTML = "";
+        alerta_cep.innerHTML = "";
+        alerta_logradouro.innerHTML = "";
+        alerta_num.innerHTML = "";
+        alerta_bairro.innerHTML = "";
+        alerta_cidade.innerHTML = "";
+        alerta_estado.innerHTML = "";
+
+
+
+
+        if (numArmazem == '') {
+            alerta_numArm.innerHTML = `O campo não pode ser vazio`
+        }
+
+        if (area == '') {
+            alerta_area.innerHTML = `O campo Área não pode ser vazio`
+        }
+
+        if (cep == '') {
+            alerta_cep.innerHTML = `O campo CEP não pode ser vazio`
+        }
+
+        if (logradouro == '') {
+            alerta_logradouro.innerHTML = `O campo Logradouro não pode ser vazio`
+        }
+
+        if (numero == '') {
+            alerta_num.innerHTML = `O campo Número não pode ser vazio`
+        }
+
+        if (bairro == '') {
+            alerta_bairro.innerHTML = `O campo Bairro não pode ser vazio`
+        }
+
+        if (cidade == '') {
+            alerta_cidade.innerHTML = `O campo Cidade não pode ser vazio`
+        }
+
+        if (estado == 'Selecione o estado') {
+            alerta_estado.innerHTML = `O campo Estado não pode ser vazio`
+        }
+
+
+    } */
+
+    function cadastrarArmazem() {
+
+
+        //Recupere o valor da nova input pelo nome do id
+        // Agora vá para o método fetch logo abaixo
+        var numArmazemVar = Number(numArmazem_input.value)
+        var areaVar = area_input.value
+        var cepVar = cep_input.value
+        var logradouroVar = logradouro_input.value
+        var numeroVar = numero_input.value
+        var bairroVar = bairro_input.value
+        var cidadeVar = cidade_input.value
+        var estadoVar = select_estado.value
+
+        /*         var cepVar = cep_input.value
+        var logradouroVar = logradouro_input.value
+        var numeroVar = numero_input.value
+        var complementoVar = complemento_input.value
+        var bairroVar = bairro_input.value
+        var cidadeVar = cidade_input.value
+        var estadoVar = select_estado.value */
+        if (
+            numArmazemVar == "" ||
+            areaVar == "" ||
+            cepVar == "" ||
+            logradouroVar == "" ||
+            numeroVar == "" ||
+            bairroVar == "" ||
+            cidadeVar == "" ||
+            estadoVar == ""
+
+            /*             cepVar == "" ||
+                logradouroVar == "" ||
+                numeroVar == "" ||
+                complementoVar == "" ||
+                bairroVar == "" ||
+                cidadeVar == "" ||
+                estadoVar == "" */
+        ) {
+            /* cardErro.style.display = "block"; */
+            mensagem_erro.innerHTML =
+                "(Mensagem de erro para todos os campos em branco)";
+
+            /* finalizarAguardar(); */
+            return false;
+        }/*  else {
+            setInterval(sumirMensagem, 5000);
+        } */
+
+        // Enviando o valor da nova input
+        fetch("/usuarios/cadastrarArmazem", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                numArmazemServer: numArmazemVar,
+                areaServer: areaVar,
+                cepServer: cepVar,
+                logradouroServer: logradouroVar,
+                numeroServer: numeroVar,
+                bairroServer: bairroVar,
+                cidadeServer: cidadeVar,
+                estadoServer: estadoVar
+                /*                 cepServer: cepVar,
+                        logradouroServer: logradouroVar,
+                        numeroServer: numeroVar,
+                        complementoServer: complementoVar,
+                        bairroServer: bairroVar,
+                        cidadeServer: cidadeVar,
+                        estadoServer: estadoVar */
+            }),
+        })
+
+
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    /* cardErro.style.display = "block"; */
+
+                        resposta.json().then(json => {
+                        console.log(json);
+                        console.log(JSON.stringify(json));
+                        sessionStorage.CNPJ_USUARIO = json.cnpj;
+
+                        setTimeout(function () {
+                            window.location = "./DashboardEmmily/Dashboard.html";
+                        }, 1000); // apenas para exibir o loading
+
+                    });
+
+                    mensagem_erro.innerHTML =
+                        "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+
+                    setTimeout(() => {
+                        window.location = "./dashboard/armazem.html";
+                    }, "2000");
+
+                } else {
+                    throw "Houve um erro ao tentar realizar o cadastro!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+
+        return false;
+    }
+    /* 
+        function sumirMensagem() {
+            cardErro.style.display = "none";
+        } */
+
+    /*Mascaras*/
+
+    const iptCep = document.querySelector('cep_input')
+
+    cep_input.addEventListener('keypress', () => {
+        let valorcep = cep_input.value.length
+
+        if (valorcep == 5) cep_input.value += '-'
+
+    }
+    )
+</script>

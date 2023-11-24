@@ -94,7 +94,7 @@ input {
   letter-spacing: 1px;
   border: none;
   cursor: pointer;
-  margin-top: -13vh;
+  margin: 10px;
 }
 
 .button_cadastrar a,

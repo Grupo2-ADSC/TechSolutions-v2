@@ -41,22 +41,7 @@ function cadastrarArmazem(numArmazem, area, cep, logradouro, numero, bairro, cid
     return database.executar(instrucao);
 }
 
-/* function cadastrarEndereco(senha, email, cnpj, nome, telefone, cep, logradouro, numero, complemento, bairro, cidade, estado) {
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():",  senha, email, cnpj, nome, telefone, cep, logradouro, numero, complemento, bairro, cidade, estado);
-
-    // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
-    //  e na ordem de inserção dos dados.
-
-    var instrucao = `
-        INSERT INTO endereco (cep, logradouro, numero, complemento, bairro, cidade, estado, tipo) VALUES ('${cep}', '${logradouro}', '${numero}', '${complemento}', '${bairro}', '${cidade}', '${estado}', 'empresa');
-        `;
-
-    console.log("Executando a instrução SQL: \n" + instrucao);
-    return database.executar(instrucao);
-} */
-
 module.exports = {
     autenticar,
-    cadastrar,
-    cadastrarArmazem
+    cadastrar
 };

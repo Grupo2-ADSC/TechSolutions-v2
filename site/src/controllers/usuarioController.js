@@ -239,6 +239,5 @@ function cadastrarArmazem(req, res) {
 
 module.exports = {
     autenticar,
-    cadastrar,
-    cadastrarArmazem
+    cadastrar
 }

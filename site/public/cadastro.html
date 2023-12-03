@@ -24,7 +24,7 @@
 
                 <ul>
                     <li><a href="index.html"><b>Home</b></a></li> |
-                    <li><button class="buttonSimulador">Cadastro</button></li> |
+                    <li><b>Cadastro</b></li> |
                     <li><a href="login.html"><b>Login </b></a></li> |
                     <li><a href="faleConosco.html"><b>Fale Conosco</b></a></li> |
                     <li><a href="sobreNos.html"><b>Sobre Nós</b></a></li> |
@@ -38,12 +38,13 @@
 
     </div>
 
-    <div class="background">
-        <div class="alerta_erro">
-            <div class="card_erro" id="cardErro">
-                <span id="mensagem_erro"></span>
-            </div>
+    <div class="alerta_erro">
+        <div class="card_erro" id="cardErro">
+            <span id="mensagem_erro"></span>
         </div>
+    </div>
+
+    <div class="background">
         <div class="fundoBranco">
             <h1 class="titulo">Cadastro</h1><br>
             <div class="divisao">
@@ -83,73 +84,6 @@
                         <span id="alerta_telefone"></span>
                     </p><br>
                 </div>
-
-                <!-- <div class="container2">
-                    <p>
-                        Logradouro <br>
-                        <input class="input" placeholder=" Rua Conceição" type="text" id="logradouro_input"><br>
-                        <span id="alerta_logradouro"></span>
-                    </p><br>
-
-                    <p>
-                        Número <br>
-                        <input class="input" placeholder=" 1200" type="text" id="numero_input"><br>
-                        <span id="alerta_numero"></span>
-                    </p><br>
-
-                    <p>
-                        Complemento <br>
-                        <input class="input" placeholder=" Ao lado do posto BR" type="text" id="complemento_input">
-                        <span id="alerta_complemento"></span>
-                    </p><br>
-
-                    <p>
-                        Bairro <br>
-                        <input class="input" placeholder=" Jardim Santo Alberto" type="text" id="bairro_input"><br>
-                        <span id="alerta_bairro"></span>
-                    </p><br>
-
-                    <p>
-                        Cidade <br>
-                        <input class="input" placeholder=" São Paulo" type="text" id="cidade_input"><br>
-                        <span id="alerta_cidade"></span>
-                    </p><br>
-
-                    <p>
-                        Selecione um estado<br>
-                        <select id="select_estado" name="estado">
-                            <option value="Selecione">Selecione Estado</option>
-                            <option value="AC">Acre</option>
-                            <option value="AL">Alagoas</option>
-                            <option value="AP">Amapá</option>
-                            <option value="AM">Amazonas</option>
-                            <option value="BA">Bahia</option>
-                            <option value="CE">Ceará</option>
-                            <option value="DF">Distrito Federal</option>
-                            <option value="ES">Espírito Santo</option>
-                            <option value="GO">Goiás</option>
-                            <option value="MA">Maranhão</option>
-                            <option value="MT">Mato Grosso</option>
-                            <option value="MS">Mato Grosso do Sul</option>
-                            <option value="MG">Minas Gerais</option>
-                            <option value="PA">Pará</option>
-                            <option value="PB">Paraíba</option>
-                            <option value="PR">Paraná</option>
-                            <option value="PE">Pernambuco</option>
-                            <option value="PI">Piauí</option>
-                            <option value="RJ">Rio de Janeiro</option>
-                            <option value="RN">Rio Grande do Norte</option>
-                            <option value="RS">Rio Grande do Sul</option>
-                            <option value="RO">Rondônia</option>
-                            <option value="RR">Roraima</option>
-                            <option value="SC">Santa Catarina</option>
-                            <option value="SP">São Paulo</option>
-                            <option value="SE">Sergipe</option>
-                            <option value="TO">Tocantins</option>
-                        </select><br>
-                        <span id="alerta_estado"></span>
-                    </p><br>
-                </div> -->
             </div><br>
             <button class="button2" onclick="cadastrar()">Cadastrar-se</button>
             <a class="link" href="../public/login.html">Já tem cadastro? Faça seu Login</a>
@@ -161,10 +95,10 @@
 
         <footer id="rodape" class="back-Rodape">
             <ul id="icones" class="back-Rodape">
-                <li><a href="#"><img src="assets/imgs/instagram.png" alt="imagem instagram'"></a></li>
+                <li><a href="#"><img src="./assets/instagram.png" alt="imagem instagram'"></a></li>
                 <li><a href="#"><img href="https://wa.me/+5511949591340?text=Olá, vi seu profile card!" target="_blank"
-                            src="assets/imgs/whatsapp.png" alt="imagem whatsapp"></a></li>
-                <li><a href="https://github.com/Grupo2-ADSC"><img src="assets/imgs/github.png" alt=""></a></li>
+                            src="./assets/whatsapp.png" alt="imagem whatsapp"></a></li>
+                <li><a href="https://github.com/Grupo2-ADSC"><img src="./assets/github.png" alt=""></a></li>
             </ul>
             <br>
             <ul id="infos" class="back-Rodape">
@@ -197,28 +131,13 @@
         var cnpjVar = cnpj_input.value;
         var nomeVar = nome_input.value;
         var telefoneVar = telefone_input.value
-
-/*         var cepVar = cep_input.value
-        var logradouroVar = logradouro_input.value
-        var numeroVar = numero_input.value
-        var complementoVar = complemento_input.value
-        var bairroVar = bairro_input.value
-        var cidadeVar = cidade_input.value
-        var estadoVar = select_estado.value */
+        
         if (
             senhaVar == "" ||
             emailVar == "" ||
             cnpjVar == "" ||
             nomeVar == "" ||
             telefoneVar == "" 
-
-/*             cepVar == "" ||
-            logradouroVar == "" ||
-            numeroVar == "" ||
-            complementoVar == "" ||
-            bairroVar == "" ||
-            cidadeVar == "" ||
-            estadoVar == "" */
         ) {
             cardErro.style.display = "block";
             mensagem_erro.innerHTML =
@@ -243,14 +162,6 @@
                 emailServer: emailVar,
                 cnpjServer: cnpjVar,
                 nomeServer: nomeVar, 
-                telefoneServer: telefoneVar
-/*                 cepServer: cepVar,
-                logradouroServer: logradouroVar,
-                numeroServer: numeroVar,
-                complementoServer: complementoVar,
-                bairroServer: bairroVar,
-                cidadeServer: cidadeVar,
-                estadoServer: estadoVar */
             }),
         })
             .then(function (resposta) {

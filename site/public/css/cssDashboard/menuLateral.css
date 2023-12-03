@@ -45,7 +45,7 @@ body{
   width: 220px;
   border-bottom: solid white 1px;
   margin-top: 10px;
-  margin-bottom: 15px;
+  margin-bottom: 50px;
 }
 
 #menuLateral a{
@@ -67,7 +67,7 @@ body{
 }
 
 #menuLateral p{
-  font-size: 28px;
+  font-size: 20px;
   color: white;
   display: block;
   font-weight: bold;
@@ -75,14 +75,9 @@ body{
 }
 
 .buttonSair {
-  margin-top: 45px;
+  margin-top: 30px;
 }
 
 #conteudoPrincipal{
   margin-left: 23%;
 }
-
-
-
-
-/* fim do menu lateral */

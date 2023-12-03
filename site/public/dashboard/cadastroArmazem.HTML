@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../js/sessao.js"></script>
+
     <link rel="stylesheet" href="../css/cssDashboard/cadastroArmazem.css">
     <link rel="stylesheet" href="../css/cssDashboard/menuLateral.css">
     <link rel="stylesheet"
@@ -12,7 +14,7 @@
     <title>Adicionar Armazém</title>
 </head>
 
-<body>
+<body onload="validarSessao()">
 
     <div class="header">
         <h2 class="titulo">Adicionar Armazém</h2>
@@ -20,9 +22,9 @@
 
     <nav id="menuLateral">
         <div class="container">
-            <p><img id="imgPerfil" src="../assets/imgs/imgPerf.png" alt=""></p>
+            <p><img id="imgPerfil" src="../assets/imgPerf.png"></p>
 
-            <p>Bem Vindo</p>
+            <p>Bem Vindo, <span id="b_usuario"></span></p>
 
             <div class="container-itens">
                 <div class="item">
@@ -33,22 +35,24 @@
                     <b><a href="./armazem.html"> <span class="material-symbols-outlined">warehouse</span>
                             Armazém</a></b>
                 </div>
-
-                <div class="item">
-                    <a href="./funcionario.html"> <span class="material-symbols-outlined">groups</span>
-                        Funcionário</a>
-                </div>
             </div>
 
             <div class="buttonSair">
-                <a href="#"> <span class="material-symbols-outlined">logout</span>Sair</a>
+                <a onclick="limparSessao()"><span class="material-symbols-outlined">logout</span>Sair</a>
             </div>
 
         </div>
     </nav>
 
+    <div class="login">
+        <div class="alerta_erro">
+            <div class="card_erro" id="cardErro">
+                <span id="mensagem_erro"></span>
+            </div>
+        </div>
+    </div>
 
-    <div class="quadro">
+    <div id="quadro" class="quadro">
 
         <div class="divisao">
 
@@ -59,12 +63,19 @@
                 </p>
 
                 <p>Área <br>
-                    <input id="area_input" placeholder=" 7.000" type="text"><br>
+                    <input id="area_input" placeholder=" 7.000" type="number"><br>
                     <span id="alerta_area"></span>
                 </p>
 
+                <p>Quantidade de Setores <br>
+                    <input id="qtdsetores_input" type="number" placeholder="8"><br>
+                    <span></span>
+                </p>
+
+
                 <p>CEP <br>
-                    <input id="cep_input" placeholder=" 02879-130" type="text" maxlength="9"><br>
+                    <input id="cep_input" placeholder=" 02879-130" type="text" maxlength="9"
+                        onblur="pesquisacep(this.value);"><br>
                     <span id="alerta_cep"></span>
                 </p>
 
@@ -73,17 +84,16 @@
                     <span id="alerta_logradouro"></span>
                 </p>
 
-                <p>Número <br>
-                    <input id="numero_input" placeholder=" 124" type="text" maxlength="5"><br>
-                    <span id="alerta_num"></span>
-                </p>
-
-
 
 
             </div>
 
             <div class="container2">
+
+                <p>Número <br>
+                    <input id="numero_input" placeholder=" 124" type="text" maxlength="5"><br>
+                    <span id="alerta_num"></span>
+                </p>
 
                 <p>Complemento <br>
                     <input id="complemento_input" placeholder=" Ao lado do posto BR" type="text">
@@ -100,9 +110,9 @@
                 </p>
 
                 <p>
-                    Selecione um estado:<br>
+                    Selecione um estado<br>
                     <select id="select_estado" name="estado">
-                        <option value="selecione">Selecione o estado</option>
+                        <option value="null">Selecione o estado</option>
                         <option value="AC">Acre</option>
                         <option value="AL">Alagoas</option>
                         <option value="AP">Amapá</option>
@@ -139,14 +149,24 @@
 
         <div class="button">
 
-            <button onclick="cadastrarArmazem()" class="button_cadastrar">Cadastrar</button>
-            <button class="button_cancelar">Cancelar</button>
-
+            <button onclick="cadastrar(), exibirPopup()" class="button_cadastrar">Cadastrar</button>
+            <a href="armazem.html"><button class="button_cancelar">Cancelar</button></a>
+            </div>
 
         </div>
 
     </div>
 
+
+      <!-- Adicione um elemento para o popup -->
+      <div id="popup" class="popup">
+        <div class="popup-content">
+            <p>Insira os nomes dos setores</p>
+            <div id="setoresContainer">
+                <!-- Os nomes dos setores serão adicionados aqui dinamicamente -->
+            </div>
+            <button onclick="cadastrarSetores()">Confirmar</button>
+        </div>
 
 </body>
 
@@ -154,115 +174,86 @@
 
 <script>
 
-    /* function cadastrar() {
+    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
-        var numArmazemVar = Number(numArmazem_input.value)
-        var areaVar = area_input.value
-        var cepVar = cap_input.value
-        var logradouroVar = logradouro_input.value
-        var numeroVar = numero_input.value
-        var bairroVar = bairro_input.value
-        var cidadeVar = cidade_input.value
-        var estadoVar = estado_input.value
+    var nomesSetores = [];
 
-        alerta_numArm.innerHTML = "";
-        alerta_area.innerHTML = "";
-        alerta_cep.innerHTML = "";
-        alerta_logradouro.innerHTML = "";
-        alerta_num.innerHTML = "";
-        alerta_bairro.innerHTML = "";
-        alerta_cidade.innerHTML = "";
-        alerta_estado.innerHTML = "";
+    // Adicione a função para exibir o popup
+    function exibirPopup() {
+        var qtdSetores = document.getElementById('qtdsetores_input').value;
 
-
-
-
-        if (numArmazem == '') {
-            alerta_numArm.innerHTML = `O campo não pode ser vazio`
+        if (qtdSetores < 1) {
+            alert('A quantidade de setores deve ser pelo menos 1.');
         }
 
-        if (area == '') {
-            alerta_area.innerHTML = `O campo Área não pode ser vazio`
+        // Limpar o container de setores antes de exibir o popup
+        document.getElementById('setoresContainer').innerHTML = '';
+
+        for (var i = 1; i <= qtdSetores; i++) {
+            var inputSetor = document.createElement('input');
+            inputSetor.placeholder = 'Setor ' + i;
+            document.getElementById('setoresContainer').appendChild(inputSetor);
         }
 
-        if (cep == '') {
-            alerta_cep.innerHTML = `O campo CEP não pode ser vazio`
-        }
+        // Exibir o popup
+        document.getElementById('popup').style.display = 'block';
+    }
 
-        if (logradouro == '') {
-            alerta_logradouro.innerHTML = `O campo Logradouro não pode ser vazio`
-        }
+    // Adicione a função para salvar os nomes dos setores
+    function CadastrarSetores() {
+        nomesSetores = [];
 
-        if (numero == '') {
-            alerta_num.innerHTML = `O campo Número não pode ser vazio`
-        }
+        var inputsSetores = document.getElementById('setoresContainer').querySelectorAll('input');
 
-        if (bairro == '') {
-            alerta_bairro.innerHTML = `O campo Bairro não pode ser vazio`
-        }
-
-        if (cidade == '') {
-            alerta_cidade.innerHTML = `O campo Cidade não pode ser vazio`
-        }
-
-        if (estado == 'Selecione o estado') {
-            alerta_estado.innerHTML = `O campo Estado não pode ser vazio`
-        }
+        inputsSetores.forEach(function (inputSetor) {
+            nomesSetores.push(inputSetor.value);
+        });
+    }
 
 
-    } */
-
-    function cadastrarArmazem() {
-
+    /*Cadastro*/
+    function cadastrar() {
 
         //Recupere o valor da nova input pelo nome do id
         // Agora vá para o método fetch logo abaixo
         var numArmazemVar = Number(numArmazem_input.value)
         var areaVar = area_input.value
+        var qtdsetoresVar = Number(qtdsetores_input.value);
         var cepVar = cep_input.value
-        var logradouroVar = logradouro_input.value
-        var numeroVar = numero_input.value
-        var bairroVar = bairro_input.value
-        var cidadeVar = cidade_input.value
-        var estadoVar = select_estado.value
-
-        /*         var cepVar = cep_input.value
         var logradouroVar = logradouro_input.value
         var numeroVar = numero_input.value
         var complementoVar = complemento_input.value
         var bairroVar = bairro_input.value
         var cidadeVar = cidade_input.value
-        var estadoVar = select_estado.value */
+        var estadoVar = select_estado.value
+        var idEmpresaVar = sessionStorage.ID_USUARIO
+
         if (
             numArmazemVar == "" ||
             areaVar == "" ||
+            qtdsetoresVar == "" ||
             cepVar == "" ||
             logradouroVar == "" ||
             numeroVar == "" ||
+            complementoVar == "" ||
             bairroVar == "" ||
             cidadeVar == "" ||
-            estadoVar == ""
+            estadoVar == "" ||
+            idEmpresaVar == ""
 
-            /*             cepVar == "" ||
-                logradouroVar == "" ||
-                numeroVar == "" ||
-                complementoVar == "" ||
-                bairroVar == "" ||
-                cidadeVar == "" ||
-                estadoVar == "" */
         ) {
-            /* cardErro.style.display = "block"; */
+            cardErro.style.display = "block"
             mensagem_erro.innerHTML =
                 "(Mensagem de erro para todos os campos em branco)";
 
-            /* finalizarAguardar(); */
+            finalizarAguardar();
             return false;
-        }/*  else {
+        } else {
             setInterval(sumirMensagem, 5000);
-        } */
+        }
 
         // Enviando o valor da nova input
-        fetch("/usuarios/cadastrarArmazem", {
+        fetch("/armazens/cadastrar", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -272,47 +263,25 @@
                 // Agora vá para o arquivo routes/usuario.js
                 numArmazemServer: numArmazemVar,
                 areaServer: areaVar,
+                qtdsetoresServer: qtdsetoresVar,
                 cepServer: cepVar,
                 logradouroServer: logradouroVar,
                 numeroServer: numeroVar,
+                complementoServer: complementoVar,
                 bairroServer: bairroVar,
                 cidadeServer: cidadeVar,
-                estadoServer: estadoVar
-                /*                 cepServer: cepVar,
-                        logradouroServer: logradouroVar,
-                        numeroServer: numeroVar,
-                        complementoServer: complementoVar,
-                        bairroServer: bairroVar,
-                        cidadeServer: cidadeVar,
-                        estadoServer: estadoVar */
+                estadoServer: estadoVar,
+                idEmpresaServer: idEmpresaVar
             }),
         })
-
 
             .then(function (resposta) {
                 console.log("resposta: ", resposta);
 
                 if (resposta.ok) {
-                    /* cardErro.style.display = "block"; */
 
-                        resposta.json().then(json => {
-                        console.log(json);
-                        console.log(JSON.stringify(json));
-                        sessionStorage.CNPJ_USUARIO = json.cnpj;
-
-                        setTimeout(function () {
-                            window.location = "./DashboardEmmily/Dashboard.html";
-                        }, 1000); // apenas para exibir o loading
-
-                    });
-
-                    mensagem_erro.innerHTML =
-                        "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
-
-                    setTimeout(() => {
-                        window.location = "./dashboard/armazem.html";
-                    }, "2000");
-
+                    quadro.style.display = "none";
+                    limparFormulario();
                 } else {
                     throw "Houve um erro ao tentar realizar o cadastro!";
                 }
@@ -323,10 +292,74 @@
 
         return false;
     }
-    /* 
-        function sumirMensagem() {
-            cardErro.style.display = "none";
-        } */
+
+    function sumirMensagem() {
+        cardErro.style.display = "none";
+    }
+
+
+    /**Via Cep*/
+    function limpa_formulário_cep() {
+        //Limpa valores do formulário de cep.
+        document.getElementById('logradouro_input').value = ("");
+        document.getElementById('bairro_input').value = ("");
+        document.getElementById('cidade_input').value = ("");
+    }
+
+    function meu_callback(conteudo) {
+        if (!("erro" in conteudo)) {
+            //Atualiza os campos com os valores.
+            document.getElementById('logradouro_input').value = (conteudo.logradouro);
+            document.getElementById('bairro_input').value = (conteudo.bairro);
+            document.getElementById('cidade_input').value = (conteudo.localidade);
+        } //end if.
+        else {
+            //CEP não Encontrado.
+            limpa_formulário_cep();
+            alert("CEP não encontrado.");
+        }
+    }
+
+    function pesquisacep(valor) {
+
+        //Nova variável "cep" somente com dígitos.
+        var cep = valor.replace(/\D/g, '');
+
+        //Verifica se campo cep possui valor informado.
+        if (cep != "") {
+
+            //Expressão regular para validar o CEP.
+            var validacep = /^[0-9]{8}$/;
+
+            //Valida o formato do CEP.
+            if (validacep.test(cep)) {
+
+                //Preenche os campos com "..." enquanto consulta webservice.
+                document.getElementById('logradouro_input').value = "...";
+                document.getElementById('bairro_input').value = "...";
+                document.getElementById('cidade_input').value = "...";
+
+                //Cria um elemento javascript.
+                var script = document.createElement('script');
+
+                //Sincroniza com o callback.
+                script.src = 'https://viacep.com.br/ws/' + cep + '/json/?callback=meu_callback';
+
+                //Insere script no documento e carrega o conteúdo.
+                document.body.appendChild(script);
+
+            } //end if.
+            else {
+                //cep é inválido.
+                limpa_formulário_cep();
+                alert("Formato de CEP inválido.");
+            }
+        } //end if.
+        else {
+            //cep sem valor, limpa formulário.
+            limpa_formulário_cep();
+        }
+    };
 
     /*Mascaras*/
 
@@ -339,4 +372,5 @@
 
     }
     )
+
 </script>

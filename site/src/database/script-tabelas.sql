@@ -16,11 +16,12 @@ telefone CHAR(14) DEFAULT 'Sem telefone'
 CREATE TABLE armazem (
 idArmazem INT PRIMARY KEY AUTO_INCREMENT,
 numeroArmazem INT,
-areaArmazem DECIMAL(5,3),
+areaArmazem DECIMAL(12,2),
 qtdSetores INT,
-cep CHAR(8),
+cep CHAR(9),
 logradouro VARCHAR(45),
 numero INT,
+complemento VARCHAR(45),
 bairro VARCHAR(45),
 cidade VARCHAR(45),
 estado CHAR(2),
@@ -58,7 +59,6 @@ PRIMARY KEY (idRegistro, fkSensor)
 SHOW TABLES;
 
 SELECT * FROM empresa;
-SELECT * FROM funcionario;
 SELECT * FROM armazem;
 SELECT * FROM setor;
 SELECT * FROM sensor;

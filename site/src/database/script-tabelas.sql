@@ -64,7 +64,6 @@ SELECT * FROM setor;
 SELECT * FROM sensor;
 SELECT * FROM registro;
 
-
 SELECT * FROM empresa
 JOIN armazem ON empresa.idEmpresa = armazem.fkEmpresa;
 

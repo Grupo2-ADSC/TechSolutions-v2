@@ -1,7 +1,56 @@
 var armazemModel = require("../models/armazemModel");
 
+
+function buscarArmazensPorEmpresa(req, res) {
+    var idUsuario = req.params.idUsuario;
+
+    armazemModel.buscarArmazensPorEmpresa(idUsuario).then((resultado) => {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).json([]);
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar os aquarios: ", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+
+
+function cadastrarSetores(req, res) {
+    // Crie uma variável que vá recuperar os valores do arquivo cadastroArmazem.html
+    var nomesSetores = req.body.nomesSetoresServer;
+    var idArmazem = req.body.idArmazemServer;
+
+    // Faça as validações dos valores
+    if (nomesSetores == undefined) {
+        res.status(400).send("O nome dos seus setores está undefined!");
+    } else if (idArmazem == undefined) {
+        res.status(400).send("Seu idArmazem está undefined!");
+    } else {
+        // Passe os valores como parâmetro e vá para o arquivo armazemModel.js
+        armazemModel.cadastrarSetores(nomesSetores, idArmazem)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro dos Setores! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
+
 function cadastrar(req, res) {
-    // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
     var numArmazem = req.body.numArmazemServer;
     var area = req.body.areaServer;
     var qtdsetores = req.body.qtdsetoresServer;
@@ -38,11 +87,11 @@ function cadastrar(req, res) {
     } else if (idEmpresa == undefined) {
         res.status(400).send("Seu idEmpresa está undefined!");
     } else {
-        // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
+        // Passe os valores como parâmetro e vá para o arquivo ArmazemModel.js
         armazemModel.cadastrar(numArmazem, area, qtdsetores, cep, logradouro, numero, complemento, bairro, cidade, estado, idEmpresa)
             .then(
                 function (resultado) {
-                    res.json(resultado);
+                    res.json(resultado)
                 }
             ).catch(
                 function (erro) {
@@ -58,5 +107,7 @@ function cadastrar(req, res) {
 }
 
 module.exports = {
-    cadastrar
+    buscarArmazensPorEmpresa,
+    cadastrar,
+    cadastrarSetores
 }

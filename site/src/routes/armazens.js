@@ -3,11 +3,17 @@ var router = express.Router();
 
 var armazemController = require("../controllers/armazemController");
 
-//Recebendo os dados do html e direcionando para a função cadastrar de usuarioController.js
+//Recebendo os dados do html e direcionando para a função cadastrar de armazemController.js
+router.get("/:empresaId", function (req, res) {
+    armazemController.buscarArmazensPorEmpresa(req, res);
+  });
+
 router.post("/cadastrar", function (req, res) {
-    console.log("Rota de cadastro de armazém alcançada!");
-    console.log("Dados recebidos:", req.body);
     armazemController.cadastrar(req, res);
+})
+
+router.post("/cadastrarSetores", function (req, res) {
+  armazemController.cadastrarSetores(req, res);
 })
 
 module.exports = router;

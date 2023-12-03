@@ -151,15 +151,15 @@
 
             <button onclick="cadastrar(), exibirPopup()" class="button_cadastrar">Cadastrar</button>
             <a href="armazem.html"><button class="button_cancelar">Cancelar</button></a>
-            </div>
-
         </div>
 
     </div>
 
+    </div>
 
-      <!-- Adicione um elemento para o popup -->
-      <div id="popup" class="popup">
+
+    <!-- Adicione um elemento para o popup -->
+    <div id="popup" class="popup">
         <div class="popup-content">
             <p>Insira os nomes dos setores</p>
             <div id="setoresContainer">
@@ -174,41 +174,8 @@
 
 <script>
 
+    //Exibindo o nome do usuario pego do sessionStorage
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
-
-    var nomesSetores = [];
-
-    // Adicione a função para exibir o popup
-    function exibirPopup() {
-        var qtdSetores = document.getElementById('qtdsetores_input').value;
-
-        if (qtdSetores < 1) {
-            alert('A quantidade de setores deve ser pelo menos 1.');
-        }
-
-        // Limpar o container de setores antes de exibir o popup
-        document.getElementById('setoresContainer').innerHTML = '';
-
-        for (var i = 1; i <= qtdSetores; i++) {
-            var inputSetor = document.createElement('input');
-            inputSetor.placeholder = 'Setor ' + i;
-            document.getElementById('setoresContainer').appendChild(inputSetor);
-        }
-
-        // Exibir o popup
-        document.getElementById('popup').style.display = 'block';
-    }
-
-    // Adicione a função para salvar os nomes dos setores
-    function CadastrarSetores() {
-        nomesSetores = [];
-
-        var inputsSetores = document.getElementById('setoresContainer').querySelectorAll('input');
-
-        inputsSetores.forEach(function (inputSetor) {
-            nomesSetores.push(inputSetor.value);
-        });
-    }
 
 
     /*Cadastro*/
@@ -235,7 +202,6 @@
             cepVar == "" ||
             logradouroVar == "" ||
             numeroVar == "" ||
-            complementoVar == "" ||
             bairroVar == "" ||
             cidadeVar == "" ||
             estadoVar == "" ||
@@ -279,12 +245,41 @@
                 console.log("resposta: ", resposta);
 
                 if (resposta.ok) {
+                    return resposta.json();
 
-                    quadro.style.display = "none";
-                    limparFormulario();
                 } else {
                     throw "Houve um erro ao tentar realizar o cadastro!";
                 }
+            })
+            .then(function (resultado) {
+
+                var armazem = {
+                    idArmazem: resultado.insertId,
+                    numeroArmazem: numArmazemVar,
+                    areaArmazem: areaVar,
+                    qtdsetores: qtdsetoresVar,
+                    cep: cepVar,
+                    logradouro: logradouroVar,
+                    numero: numeroVar,
+                    complemento: complementoVar,
+                    bairro: bairroVar,
+                    cidade: cidadeVar,
+                    estado: estadoVar,
+                    idEmpresa: idEmpresaVar
+
+                };
+
+
+                // Recupere a lista atual do ARMAZENS
+                let listaArmazens = JSON.parse(sessionStorage.getItem('ARMAZENS')) || [];
+
+                // Adicione o novo armazém à lista
+                listaArmazens.push(armazem);
+
+                // Armazene a lista atualizada no ARMAZENS
+                sessionStorage.setItem('ARMAZENS', JSON.stringify(listaArmazens));
+
+                quadro.style.display = "none";
             })
             .catch(function (resposta) {
                 console.log(`#ERRO: ${resposta}`);
@@ -298,12 +293,116 @@
     }
 
 
+
+    // Adicione a função para exibir o popup de setores
+    function exibirPopup() {
+        var qtdSetores = document.getElementById('qtdsetores_input').value;
+
+        if (qtdSetores < 1) {
+            alert('A quantidade de setores deve ser pelo menos 1.');
+        }
+
+        // Limpar o container de setores antes de exibir o popup
+        document.getElementById('setoresContainer').innerHTML = '';
+
+        for (var i = 1; i <= qtdSetores; i++) {
+            var inputSetor = document.createElement('input');
+            inputSetor.placeholder = 'Setor ' + i;
+            document.getElementById('setoresContainer').appendChild(inputSetor);
+        }
+
+        // Exibir o popup
+        document.getElementById('popup').style.display = 'block';
+    }
+
+
+
+    //Cadastro de Setores
+    function cadastrarSetores() {
+        //Converte e armazena na váriavel
+        //Os dados são salvos como string no session storage, dependendo do que for armazenado tipo um array
+        //Convertemos esse valor para um array javascript para ser utilizado
+        var armazens = JSON.parse(sessionStorage.ARMAZENS);
+        var ultimoArmazem = armazens[armazens.length - 1];
+
+        // Obtém o idArmazem do último armazem
+        var idArmazem = ultimoArmazem.idArmazem;
+
+        var nomesSetores = [];
+
+        var algumaInputVazia = false;
+
+        var inputsSetores = document.getElementById('setoresContainer').querySelectorAll('input');
+
+        inputsSetores.forEach(function (inputSetor) {
+            nomesSetores.push(inputSetor.value);
+
+            if (inputSetor.value.trim() === '') {
+                algumaInputVazia = true;
+            }
+        });
+
+        if (algumaInputVazia) {
+
+            cardErro.style.display = "block"
+            mensagem_erro.innerHTML =
+                "(Mensagem de erro para todos os campos em branco)";
+
+            finalizarAguardar();
+            return false;
+        } else {
+            setInterval(sumirMensagem, 5000);
+        }
+
+        // Enviando o valor da nova input
+        fetch("/armazens/cadastrarSetores", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/armazens.js
+                nomesSetoresServer: nomesSetores,
+                idArmazemServer: idArmazem
+            }),
+        })
+
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+
+                    mensagem_erro.innerHTML =
+                        "Cadastro realizado com sucesso! Redirecionando para tela de Armazem...";
+
+                    setTimeout(() => {
+                        window.location = "armazem.html";
+                    }, "2000");
+
+                } else {
+                    throw "Houve um erro ao tentar realizar o cadastro dos setores!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+
+        return false;
+    }
+
+    function sumirMensagem() {
+        cardErro.style.display = "none";
+
+    }
+
+
     /**Via Cep*/
     function limpa_formulário_cep() {
-        //Limpa valores do formulário de cep.
-        document.getElementById('logradouro_input').value = ("");
-        document.getElementById('bairro_input').value = ("");
-        document.getElementById('cidade_input').value = ("");
+            //Limpa valores do formulário de cep.
+            document.getElementById('logradouro_input').value=("");
+            document.getElementById('bairro_input').value=("");
+            document.getElementById('cidade_input').value=("");
     }
 
     function meu_callback(conteudo) {

@@ -12,7 +12,7 @@
     <title>Armazém</title>
 </head>
 
-<body>
+<body onload="atualizarArmazens()">
 
     <div class="header">
         <div class="container">
@@ -47,47 +47,19 @@
     </nav>
 
     <div class="container-table">
-        <table>
+        <table id="table-armazens">
             <th>Armazem</th>
             <th>Área</th>
-            <th>Logradouro</th>
-            <th>Bairro</th>
-            <th>Cidade</th>
-            <th>Estado</th>
+            <th>Qtd de Setores</th>
+            <th>Localização</th>
             <th>Ações</th>
 
-            <tr>
-                <td>1</td>
-                <td>10.000 m2</td>
-                <td>Avenida Caxias 104</td>
-                <td>Santo André</td>
-                <td>São Paulo</td>
-                <td>SP</td>
-                <td class="icone">
-                    <a href="#"><span class="material-symbols-outlined delet">delete</span></a>
-                    <a href="#"><span class="material-symbols-outlined edit">edit_square</span></a>
-                </td>
-            </tr>
-
-            <tr>
-                <td>2</td>
-                <td>15.000 m2</td>
-                <td>Rua Davinci 19</td>
-                <td>Guarulhos</td>
-                <td>São Paulo</td>
-                <td>SP</td>
-                <td class="icone">
-                    <a href="#"><span class="material-symbols-outlined delet">delete</span></a>
-                    <a href="#"><span class="material-symbols-outlined edit">edit_square</span></a>
-                </td>
+            <tr id="tr-armazens">
             </tr>
         </table>
+
         <div class="controle">
-
-            <a href="cadastroArmazem.HTML">
-                <button class="button">Adicionar</button>
-
-            </a>
+            <button onclick="adicionar()" class="button">Adicionar</button>
         </div>
 
     </div>
@@ -99,5 +71,68 @@
 <script>
 
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+
+    function adicionar() {
+        setTimeout(() => {
+            window.location = "cadastroArmazem.html";
+        }, "1000");
+    }
+
+    function atualizarArmazens() {
+        fetch("/armazens/listar").then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    throw "Nenhum resultado encontrado!!";
+                }
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                    var tableArmazens = document.getElementById("table-armazens");
+
+                    for (let i = 0; i < resposta.length; i++) {
+                        var armazem = resposta[i];
+
+                        // Criando e manipulando elementos do HTML via JavaScript
+                        var trRegistro = document.createElement("tr");
+                        var tdArmazem = document.createElement("td");
+                        var tdArea = document.createElement("td");
+                        var tdQtdSetores = document.createElement("td");
+                        var tdLocalizacao = document.createElement("td");
+                        var tdAcoes = document.createElement("td");
+                        var btnDeletar = document.createElement("button");
+
+                        tdArmazem.textContent = armazem.Armazem;
+                        tdArea.textContent = armazem.Area;
+                        tdQtdSetores.textContent = armazem.QtdSetores;
+                        tdLocalizacao.textContent = armazem.Localizacao;
+
+                        btnDeletar.innerHTML = '<span class="material-symbols-outlined delet">delete</span>';
+                        btnDeletar.className = "delet";
+                        btnDeletar.addEventListener("click", function () {
+                            // Adicione aqui a lógica para deletar o armazém (chamando a função deletar(), por exemplo)
+                            // Você pode usar armazem.ID ou outra propriedade para identificar o armazém específico a ser deletado
+                            deletar(armazem.ID);
+                        });
+
+                        trRegistro.appendChild(tdArmazem);
+                        trRegistro.appendChild(tdArea);
+                        trRegistro.appendChild(tdQtdSetores);
+                        trRegistro.appendChild(tdLocalizacao);
+                        tdAcoes.appendChild(btnDeletar);
+                        trRegistro.appendChild(tdAcoes);
+
+                        tableArmazens.appendChild(trRegistro);
+                    }
+
+                });
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+        });
+    }
+
 
 </script>

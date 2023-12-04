@@ -21,7 +21,7 @@ qtdSetores INT,
 cep CHAR(9),
 logradouro VARCHAR(45),
 numero INT,
-complemento VARCHAR(45),
+complemento VARCHAR(45) DEFAULT 'Sem complemento',
 bairro VARCHAR(45),
 cidade VARCHAR(45),
 estado CHAR(2),
@@ -63,6 +63,13 @@ SELECT * FROM armazem;
 SELECT * FROM setor;
 SELECT * FROM sensor;
 SELECT * FROM registro;
+
+
+/*A empresa precisa ter pelo menos um armazem cadastrado no banco para logar*/
+insert into armazem values 
+(null, 12, 5000, 6, 03814-070, 'Rua das flores', 56, null, 'Aracaju', 'São Paulo', 'SP', 1);
+
+
 
 SELECT * FROM empresa
 JOIN armazem ON empresa.idEmpresa = armazem.fkEmpresa;

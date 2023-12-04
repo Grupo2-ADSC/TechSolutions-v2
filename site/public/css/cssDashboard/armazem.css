@@ -28,7 +28,7 @@ body{
 }
 
 table {
-    table-layout: auto;
+    table-layout: fixed;
     background-color: #f8f5ec;
     width: 60vw;
     margin-top: 80px;
@@ -49,11 +49,18 @@ table tr {
     text-align: center;
 }
 
+table td {
+    padding: 8px; /* Ajuste o valor conforme necessário */
+}
+
 
 /*Icons delet e edit*/
 
 .delet {
     color: #FF3131;
+    background-color: #f8f5ec;
+    border: none;
+    cursor: pointer;
 }
 
 .edit {

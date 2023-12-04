@@ -16,4 +16,9 @@ router.post("/cadastrarSetores", function (req, res) {
   armazemController.cadastrarSetores(req, res);
 })
 
+router.post("/listar", function (req, res) {
+  armazemController.listar(req, res);
+})
+
+
 module.exports = router;

@@ -18,22 +18,6 @@ function buscarArmazensPorEmpresa(req, res) {
 }
 
 
-function listar(req, res) {
-    armazemModel.listar().then(function (resultado) {
-        if (resultado.length > 0) {
-            res.status(200).json(resultado);
-        } else {
-            res.status(204).send("Nenhum resultado encontrado!")
-        }
-    }).catch(function (erro) {
-        console.log(erro);
-        console.log("Houve um erro ao buscar os armazens: ", erro.sqlMessage);
-        res.status(500).json(erro.sqlMessage);
-    });
-}
-
-
-
 function cadastrarSetores(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastroArmazem.html
     var nomesSetores = req.body.nomesSetoresServer;
@@ -121,8 +105,23 @@ function cadastrar(req, res) {
     }
 }
 
+
+// function listar(req, res) {
+//     armazemModel.listar().then(function (resultado) {
+//         if (resultado.length > 0) {
+//             res.status(200).json(resultado);
+//         } else {
+//             res.status(204).send("Nenhum resultado encontrado!")
+//         }
+//     }).catch(function (erro) {
+//         console.log(erro);
+//         console.log("Houve um erro ao buscar os armazens: ", erro.sqlMessage);
+//         res.status(500).json(erro.sqlMessage);
+//     });
+// }
+
 module.exports = {
-    listar,
+    // listar,
     buscarArmazensPorEmpresa,
     cadastrar,
     cadastrarSetores

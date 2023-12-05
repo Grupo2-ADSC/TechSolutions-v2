@@ -1,10 +1,25 @@
 body {
+  margin: 0;
+  padding: 0;
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
   font-family: 'Montserrat', sans-serif;
   background-color: #e7eaf0;
 
+}
+
+/*header*/
+.header {
+  display: flex;
+  flex-direction: row;
+  background-color:  #F8F5EC;
+  padding-left: 380px;
+  border-bottom: 4px solid #184062; 
+}
+.titulo{
+  font-size: 28px;
+  color:#184062 ; 
 }
 
 /*guia de umidade*/
@@ -14,15 +29,15 @@ body {
   margin-top: 30px;
   margin-bottom: -30px;
   font-size: 20px;
+  display: none;
 }
-
-
 
 
 /*metricas*/
 
 .metricas {
   display: flex;
+  display: none;
   margin: 45px;
   text-align: center;
   line-height: 70px;
@@ -133,6 +148,7 @@ body {
 /* graficos */
 .conteudo_metricas_graficos {
   flex-direction: column;
+  display: none;
 }
 
 canvas {
@@ -150,6 +166,7 @@ canvas {
   flex-wrap: wrap;
   justify-content: center;
   margin-left: 28%;
+  display: none;
 }
 
 .chart-itens {

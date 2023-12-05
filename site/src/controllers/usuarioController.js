@@ -20,6 +20,7 @@ function autenticar(req, res) {
                     if (resultadoAutenticar.length == 1) {
                         console.log(resultadoAutenticar);
 
+                        console.log("resultadoAutenticar[0].empresaId", resultadoAutenticar[0].empresaId)
                         armazemModel.buscarArmazensPorEmpresa(resultadoAutenticar[0].empresaId)
                         .then((resultadoArmazens) => {
                             if (resultadoArmazens.length > 0) {

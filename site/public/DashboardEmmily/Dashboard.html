@@ -19,11 +19,19 @@
 
 <body>
 
+    <div class="header">
+        <div class="container">
+
+            <h1 class="titulo">Dashboard</h1>
+
+        </div>
+    </div>
+
     <nav id="menuLateral">
         <div class="container">
-            <p><img id="imgPerfil" src="./assets/imgPerf.png" alt=""></p>
+            <p><img id="imgPerfil" src="./assets/imgPerf.png"></p>
 
-            <p>Bem Vindo</p>
+            <p>Bem Vindo, <span id="b_usuario"></span></p>
 
             <div class="container-itens">
                 <div class="item">
@@ -34,19 +42,21 @@
                     <a href="../dashboard/armazem.html"> <span class="material-symbols-outlined">warehouse</span>
                         Armazém</a></b>
                 </div>
-
-                <div class="item">
-                    <a href="telaAdicionarFuncionario.html"> <span class="material-symbols-outlined">groups</span>
-                        Funcionário</a>
-                </div>
             </div>
 
             <div class="buttonSair">
-                <a href="../Login.HTML"> <span class="material-symbols-outlined">logout</span>Sair</a>
+                <a onclick="limparSessao()"> <span class="material-symbols-outlined">logout</span>Sair</a>
             </div>
 
         </div>
     </nav>
+
+    <div id="alerta">
+    </div>
+
+    <div class="btns-dash" id="btnAquario">
+        <!-- O gráfico é chamado de acordo com o id (fkArmazem) do banco  -->
+    </div>
 
     <div class="guia_de_umidade">
         <p>Guia de umidade</p>
@@ -190,6 +200,10 @@
 </html>
 
 <script>
+
+    //Exibindo o nome do usuario pego do sessionStorage
+    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+
 
 
     const ctx = document.getElementById('myChart');

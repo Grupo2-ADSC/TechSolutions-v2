@@ -20,5 +20,9 @@ router.post("/listar", function (req, res) {
   armazemController.listar(req, res);
 })
 
+router.delete("/deletar/:idArmazem", function (req, res) {
+  armazemController.deletar(req, res);
+});
+
 
 module.exports = router;

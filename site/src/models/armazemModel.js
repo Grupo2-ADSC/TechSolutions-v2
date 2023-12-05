@@ -2,7 +2,7 @@ var database = require("../database/config")
 
 function buscarArmazensPorEmpresa(empresaId) {
 
-    instrucaoSql = `select * from armazem a where fkEmpresa = ${empresaId}`;
+    instrucaoSql = `select * from armazem where fkEmpresa = 1`;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -37,24 +37,35 @@ function cadastrarSetores(nomesSetores, idArmazem) {
     return database.executar(instrucao);
 }
 
-// function listar() {
-//     console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()");
-//     var instrucao = `
-//         SELECT 
-//         idArmazem as id,
-//         numeroArmazem as Armazem,
-//         areaArmazem as Area,
-//         qtdSetores as QtdSetores,
-//         CONCAT(cep, ' - ', estado) as Localizacao,
-//         fkEmpresa
-//         FROM armazem;
-//         `;
-//     console.log("Executando a instrução SQL: \n" + instrucao);
-//     return database.executar(instrucao);
-// }
+function listar() {
+    console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()");
+    var instrucao = `
+        SELECT 
+        idArmazem,
+        numeroArmazem
+        areaArmazem,
+        qtdSetores,
+        cep,
+        estado,
+        fkEmpresa
+        FROM armazem;
+        `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
+function deletar(idArmazem) {
+    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function deletar():", idArmazem);
+    var instrucao = `
+        DELETE FROM armazem WHERE idArmazem = ${idArmazem};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
 
 module.exports = {
-    // listar,
+    listar,
+    deletar,
     buscarArmazensPorEmpresa,
     cadastrar,
     cadastrarSetores

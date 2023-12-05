@@ -8,7 +8,7 @@ CREATE TABLE empresa (
 idEmpresa INT PRIMARY KEY AUTO_INCREMENT,
 cnpj CHAR(16) NOT NULL,
 nome VARCHAR(50) NOT NULL,
-telefone CHAR(14) DEFAULT 'Sem telefone',
+telefone CHAR(14) NOT NULL,
 email VARCHAR(100) NOT NULL,
 senha VARCHAR(16) NOT NULL
 );
@@ -19,11 +19,6 @@ numeroArmazem INT NOT NULL,
 areaArmazem DECIMAL(12,2) NOT NULL,
 qtdSetores INT NOT NULL,
 cep CHAR(9) NOT NULL,
-logradouro VARCHAR(45),
-numero INT,
-complemento VARCHAR(45) DEFAULT 'Sem complemento',
-bairro VARCHAR(45),
-cidade VARCHAR(45),
 estado CHAR(2) NOT NULL,
 fkEmpresa INT NOT NULL, 
 FOREIGN KEY (fkEmpresa) 
@@ -32,7 +27,7 @@ REFERENCES empresa (idEmpresa)
 
 /*A empresa precisa ter pelo menos um armazem cadastrado no banco para logar*/
 insert into armazem values 
-(null, 12, 7000, 2, '04836-375', 'Travessa Antônio Buroni', 44, null, 'Jardim Alpino', 'São Paulo', 'SP', 1);
+(null, 12, 7000, 2, '04836-375','SP', 1);
 
 CREATE TABLE setor (
 idSetor INT PRIMARY KEY AUTO_INCREMENT,
@@ -43,8 +38,8 @@ REFERENCES armazem (idArmazem) ON DELETE CASCADE
 );
 
 insert into setor values
-	(null, 'Setor A', 3),
-    (null, 'Setor B', 3);
+	(null, 'Setor A', 1),
+    (null, 'Setor B', 1);
 
 CREATE TABLE sensor (
 idSensor INT PRIMARY KEY AUTO_INCREMENT,
@@ -55,8 +50,8 @@ REFERENCES setor (idSetor) ON DELETE CASCADE
 );
 
 insert into sensor values
-	(null, 'DHT11', 2),
-    (null, 'DHT11', 3);
+	(null, 'DHT11', 1),
+    (null, 'DHT11', 2);
 
 CREATE TABLE registro (
 idRegistro INT AUTO_INCREMENT,
@@ -69,8 +64,8 @@ PRIMARY KEY (idRegistro, fkSensor)
 );
 
 insert into registro (idRegistro, dado, fkSensor) values
-	(null, 66.00, 4),
-    (null, 60.10, 5);
+	(null, 66.00, 1),
+    (null, 60.10, 2);
 
 SHOW TABLES;
 

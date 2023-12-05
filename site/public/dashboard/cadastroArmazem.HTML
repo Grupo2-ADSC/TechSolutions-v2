@@ -179,297 +179,297 @@
 
 
     /*Cadastro*/
-    function cadastrar() {
+    // function cadastrar() {
 
-        //Recupere o valor da nova input pelo nome do id
-        // Agora vá para o método fetch logo abaixo
-        var numArmazemVar = Number(numArmazem_input.value)
-        var areaVar = area_input.value
-        var qtdsetoresVar = Number(qtdsetores_input.value);
-        var cepVar = cep_input.value
-        var logradouroVar = logradouro_input.value
-        var numeroVar = numero_input.value
-        var complementoVar = complemento_input.value
-        var bairroVar = bairro_input.value
-        var cidadeVar = cidade_input.value
-        var estadoVar = select_estado.value
-        var idEmpresaVar = sessionStorage.ID_USUARIO
+    //     //Recupere o valor da nova input pelo nome do id
+    //     // Agora vá para o método fetch logo abaixo
+    //     var numArmazemVar = Number(numArmazem_input.value)
+    //     var areaVar = area_input.value
+    //     var qtdsetoresVar = Number(qtdsetores_input.value);
+    //     var cepVar = cep_input.value
+    //     var logradouroVar = logradouro_input.value
+    //     var numeroVar = numero_input.value
+    //     var complementoVar = complemento_input.value
+    //     var bairroVar = bairro_input.value
+    //     var cidadeVar = cidade_input.value
+    //     var estadoVar = select_estado.value
+    //     var idEmpresaVar = sessionStorage.ID_USUARIO
 
-        if (
-            numArmazemVar == "" ||
-            areaVar == "" ||
-            qtdsetoresVar == "" ||
-            cepVar == "" ||
-            logradouroVar == "" ||
-            numeroVar == "" ||
-            bairroVar == "" ||
-            cidadeVar == "" ||
-            estadoVar == "" ||
-            idEmpresaVar == ""
+    //     if (
+    //         numArmazemVar == "" ||
+    //         areaVar == "" ||
+    //         qtdsetoresVar == "" ||
+    //         cepVar == "" ||
+    //         logradouroVar == "" ||
+    //         numeroVar == "" ||
+    //         bairroVar == "" ||
+    //         cidadeVar == "" ||
+    //         estadoVar == "" ||
+    //         idEmpresaVar == ""
 
-        ) {
-            cardErro.style.display = "block"
-            mensagem_erro.innerHTML =
-                "(Mensagem de erro para todos os campos em branco)";
+    //     ) {
+    //         cardErro.style.display = "block"
+    //         mensagem_erro.innerHTML =
+    //             "(Mensagem de erro para todos os campos em branco)";
 
-            finalizarAguardar();
-            return false;
-        } else {
-            setInterval(sumirMensagem, 5000);
-        }
+    //         finalizarAguardar();
+    //         return false;
+    //     } else {
+    //         setInterval(sumirMensagem, 5000);
+    //     }
 
-        // Enviando o valor da nova input
-        fetch("/armazens/cadastrar", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                // crie um atributo que recebe o valor recuperado aqui
-                // Agora vá para o arquivo routes/usuario.js
-                numArmazemServer: numArmazemVar,
-                areaServer: areaVar,
-                qtdsetoresServer: qtdsetoresVar,
-                cepServer: cepVar,
-                logradouroServer: logradouroVar,
-                numeroServer: numeroVar,
-                complementoServer: complementoVar,
-                bairroServer: bairroVar,
-                cidadeServer: cidadeVar,
-                estadoServer: estadoVar,
-                idEmpresaServer: idEmpresaVar
-            }),
-        })
+    //     // Enviando o valor da nova input
+    //     fetch("/armazens/cadastrar", {
+    //         method: "POST",
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //         },
+    //         body: JSON.stringify({
+    //             // crie um atributo que recebe o valor recuperado aqui
+    //             // Agora vá para o arquivo routes/usuario.js
+    //             numArmazemServer: numArmazemVar,
+    //             areaServer: areaVar,
+    //             qtdsetoresServer: qtdsetoresVar,
+    //             cepServer: cepVar,
+    //             logradouroServer: logradouroVar,
+    //             numeroServer: numeroVar,
+    //             complementoServer: complementoVar,
+    //             bairroServer: bairroVar,
+    //             cidadeServer: cidadeVar,
+    //             estadoServer: estadoVar,
+    //             idEmpresaServer: idEmpresaVar
+    //         }),
+    //     })
 
-            .then(function (resposta) {
-                console.log("resposta: ", resposta);
+    //         .then(function (resposta) {
+    //             console.log("resposta: ", resposta);
 
-                if (resposta.ok) {
-                    return resposta.json();
+    //             if (resposta.ok) {
+    //                 return resposta.json();
 
-                } else {
-                    throw "Houve um erro ao tentar realizar o cadastro!";
-                }
-            })
-            .then(function (resultado) {
+    //             } else {
+    //                 throw "Houve um erro ao tentar realizar o cadastro!";
+    //             }
+    //         })
+    //         .then(function (resultado) {
 
-                var armazem = {
-                    idArmazem: resultado.insertId,
-                    numeroArmazem: numArmazemVar,
-                    areaArmazem: areaVar,
-                    qtdsetores: qtdsetoresVar,
-                    cep: cepVar,
-                    logradouro: logradouroVar,
-                    numero: numeroVar,
-                    complemento: complementoVar,
-                    bairro: bairroVar,
-                    cidade: cidadeVar,
-                    estado: estadoVar,
-                    idEmpresa: idEmpresaVar
+    //             var armazem = {
+    //                 idArmazem: resultado.insertId,
+    //                 numeroArmazem: numArmazemVar,
+    //                 areaArmazem: areaVar,
+    //                 qtdsetores: qtdsetoresVar,
+    //                 cep: cepVar,
+    //                 logradouro: logradouroVar,
+    //                 numero: numeroVar,
+    //                 complemento: complementoVar,
+    //                 bairro: bairroVar,
+    //                 cidade: cidadeVar,
+    //                 estado: estadoVar,
+    //                 idEmpresa: idEmpresaVar
 
-                };
-
-
-                // Recupere a lista atual do ARMAZENS
-                let listaArmazens = JSON.parse(sessionStorage.getItem('ARMAZENS')) || [];
-
-                // Adicione o novo armazém à lista
-                listaArmazens.push(armazem);
-
-                // Armazene a lista atualizada no ARMAZENS
-                sessionStorage.setItem('ARMAZENS', JSON.stringify(listaArmazens));
-
-                quadro.style.display = "none";
-            })
-            .catch(function (resposta) {
-                console.log(`#ERRO: ${resposta}`);
-            });
-
-        return false;
-    }
-
-    function sumirMensagem() {
-        cardErro.style.display = "none";
-    }
+    //             };
 
 
+    //             // Recupere a lista atual do ARMAZENS
+    //             let listaArmazens = JSON.parse(sessionStorage.getItem('ARMAZENS')) || [];
 
-    // Adicione a função para exibir o popup de setores
-    function exibirPopup() {
-        var qtdSetores = document.getElementById('qtdsetores_input').value;
+    //             // Adicione o novo armazém à lista
+    //             listaArmazens.push(armazem);
 
-        if (qtdSetores < 1) {
-            alert('A quantidade de setores deve ser pelo menos 1.');
-        }
+    //             // Armazene a lista atualizada no ARMAZENS
+    //             sessionStorage.setItem('ARMAZENS', JSON.stringify(listaArmazens));
 
-        // Limpar o container de setores antes de exibir o popup
-        document.getElementById('setoresContainer').innerHTML = '';
+    //             quadro.style.display = "none";
+    //         })
+    //         .catch(function (resposta) {
+    //             console.log(`#ERRO: ${resposta}`);
+    //         });
 
-        for (var i = 1; i <= qtdSetores; i++) {
-            var inputSetor = document.createElement('input');
-            inputSetor.placeholder = 'Setor ' + i;
-            document.getElementById('setoresContainer').appendChild(inputSetor);
-        }
+    //     return false;
+    // }
 
-        // Exibir o popup
-        document.getElementById('popup').style.display = 'block';
-    }
+    // function sumirMensagem() {
+    //     cardErro.style.display = "none";
+    // }
 
 
 
-    //Cadastro de Setores
-    function cadastrarSetores() {
-        //Converte e armazena na váriavel
-        //Os dados são salvos como string no session storage, dependendo do que for armazenado tipo um array
-        //Convertemos esse valor para um array javascript para ser utilizado
-        var armazens = JSON.parse(sessionStorage.ARMAZENS);
-        var ultimoArmazem = armazens[armazens.length - 1];
+    // // Adicione a função para exibir o popup de setores
+    // function exibirPopup() {
+    //     var qtdSetores = document.getElementById('qtdsetores_input').value;
 
-        // Obtém o idArmazem do último armazem
-        var idArmazem = ultimoArmazem.idArmazem;
+    //     if (qtdSetores < 1) {
+    //         alert('A quantidade de setores deve ser pelo menos 1.');
+    //     }
 
-        var nomesSetores = [];
+    //     // Limpar o container de setores antes de exibir o popup
+    //     document.getElementById('setoresContainer').innerHTML = '';
 
-        var algumaInputVazia = false;
+    //     for (var i = 1; i <= qtdSetores; i++) {
+    //         var inputSetor = document.createElement('input');
+    //         inputSetor.placeholder = 'Setor ' + i;
+    //         document.getElementById('setoresContainer').appendChild(inputSetor);
+    //     }
 
-        var inputsSetores = document.getElementById('setoresContainer').querySelectorAll('input');
-
-        inputsSetores.forEach(function (inputSetor) {
-            nomesSetores.push(inputSetor.value);
-
-            if (inputSetor.value.trim() === '') {
-                algumaInputVazia = true;
-            }
-        });
-
-        if (algumaInputVazia) {
-
-            cardErro.style.display = "block"
-            mensagem_erro.innerHTML =
-                "(Mensagem de erro para todos os campos em branco)";
-
-            finalizarAguardar();
-            return false;
-        } else {
-            setInterval(sumirMensagem, 5000);
-        }
-
-        // Enviando o valor da nova input
-        fetch("/armazens/cadastrarSetores", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                // crie um atributo que recebe o valor recuperado aqui
-                // Agora vá para o arquivo routes/armazens.js
-                nomesSetoresServer: nomesSetores,
-                idArmazemServer: idArmazem
-            }),
-        })
-
-            .then(function (resposta) {
-                console.log("resposta: ", resposta);
-
-                if (resposta.ok) {
-
-                    mensagem_erro.innerHTML =
-                        "Cadastro realizado com sucesso! Redirecionando para tela de Armazem...";
-
-                    setTimeout(() => {
-                        window.location = "armazem.html";
-                    }, "2000");
-
-                } else {
-                    throw "Houve um erro ao tentar realizar o cadastro dos setores!";
-                }
-            })
-            .catch(function (resposta) {
-                console.log(`#ERRO: ${resposta}`);
-            });
-
-        return false;
-    }
-
-    function sumirMensagem() {
-        cardErro.style.display = "none";
-
-    }
+    //     // Exibir o popup
+    //     document.getElementById('popup').style.display = 'block';
+    // }
 
 
-    /**Via Cep*/
-    function limpa_formulário_cep() {
-            //Limpa valores do formulário de cep.
-            document.getElementById('logradouro_input').value=("");
-            document.getElementById('bairro_input').value=("");
-            document.getElementById('cidade_input').value=("");
-    }
 
-    function meu_callback(conteudo) {
-        if (!("erro" in conteudo)) {
-            //Atualiza os campos com os valores.
-            document.getElementById('logradouro_input').value = (conteudo.logradouro);
-            document.getElementById('bairro_input').value = (conteudo.bairro);
-            document.getElementById('cidade_input').value = (conteudo.localidade);
-        } //end if.
-        else {
-            //CEP não Encontrado.
-            limpa_formulário_cep();
-            alert("CEP não encontrado.");
-        }
-    }
+    // //Cadastro de Setores
+    // function cadastrarSetores() {
+    //     //Converte e armazena na váriavel
+    //     //Os dados são salvos como string no session storage, dependendo do que for armazenado tipo um array
+    //     //Convertemos esse valor para um array javascript para ser utilizado
+    //     var armazens = JSON.parse(sessionStorage.ARMAZENS);
+    //     var ultimoArmazem = armazens[armazens.length - 1];
 
-    function pesquisacep(valor) {
+    //     // Obtém o idArmazem do último armazem
+    //     var idArmazem = ultimoArmazem.idArmazem;
 
-        //Nova variável "cep" somente com dígitos.
-        var cep = valor.replace(/\D/g, '');
+    //     var nomesSetores = [];
 
-        //Verifica se campo cep possui valor informado.
-        if (cep != "") {
+    //     var algumaInputVazia = false;
 
-            //Expressão regular para validar o CEP.
-            var validacep = /^[0-9]{8}$/;
+    //     var inputsSetores = document.getElementById('setoresContainer').querySelectorAll('input');
 
-            //Valida o formato do CEP.
-            if (validacep.test(cep)) {
+    //     inputsSetores.forEach(function (inputSetor) {
+    //         nomesSetores.push(inputSetor.value);
 
-                //Preenche os campos com "..." enquanto consulta webservice.
-                document.getElementById('logradouro_input').value = "...";
-                document.getElementById('bairro_input').value = "...";
-                document.getElementById('cidade_input').value = "...";
+    //         if (inputSetor.value.trim() === '') {
+    //             algumaInputVazia = true;
+    //         }
+    //     });
 
-                //Cria um elemento javascript.
-                var script = document.createElement('script');
+    //     if (algumaInputVazia) {
 
-                //Sincroniza com o callback.
-                script.src = 'https://viacep.com.br/ws/' + cep + '/json/?callback=meu_callback';
+    //         cardErro.style.display = "block"
+    //         mensagem_erro.innerHTML =
+    //             "(Mensagem de erro para todos os campos em branco)";
 
-                //Insere script no documento e carrega o conteúdo.
-                document.body.appendChild(script);
+    //         finalizarAguardar();
+    //         return false;
+    //     } else {
+    //         setInterval(sumirMensagem, 5000);
+    //     }
 
-            } //end if.
-            else {
-                //cep é inválido.
-                limpa_formulário_cep();
-                alert("Formato de CEP inválido.");
-            }
-        } //end if.
-        else {
-            //cep sem valor, limpa formulário.
-            limpa_formulário_cep();
-        }
-    };
+    //     // Enviando o valor da nova input
+    //     fetch("/armazens/cadastrarSetores", {
+    //         method: "POST",
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //         },
+    //         body: JSON.stringify({
+    //             // crie um atributo que recebe o valor recuperado aqui
+    //             // Agora vá para o arquivo routes/armazens.js
+    //             nomesSetoresServer: nomesSetores,
+    //             idArmazemServer: idArmazem
+    //         }),
+    //     })
 
-    /*Mascaras*/
+    //         .then(function (resposta) {
+    //             console.log("resposta: ", resposta);
 
-    const iptCep = document.querySelector('cep_input')
+    //             if (resposta.ok) {
 
-    cep_input.addEventListener('keypress', () => {
-        let valorcep = cep_input.value.length
+    //                 mensagem_erro.innerHTML =
+    //                     "Cadastro realizado com sucesso! Redirecionando para tela de Armazem...";
 
-        if (valorcep == 5) cep_input.value += '-'
+    //                 setTimeout(() => {
+    //                     window.location = "armazem.html";
+    //                 }, "2000");
 
-    }
-    )
+    //             } else {
+    //                 throw "Houve um erro ao tentar realizar o cadastro dos setores!";
+    //             }
+    //         })
+    //         .catch(function (resposta) {
+    //             console.log(`#ERRO: ${resposta}`);
+    //         });
+
+    //     return false;
+    // }
+
+    // function sumirMensagem() {
+    //     cardErro.style.display = "none";
+
+    // }
+
+
+    // /**Via Cep*/
+    // function limpa_formulário_cep() {
+    //         //Limpa valores do formulário de cep.
+    //         document.getElementById('logradouro_input').value=("");
+    //         document.getElementById('bairro_input').value=("");
+    //         document.getElementById('cidade_input').value=("");
+    // }
+
+    // function meu_callback(conteudo) {
+    //     if (!("erro" in conteudo)) {
+    //         //Atualiza os campos com os valores.
+    //         document.getElementById('logradouro_input').value = (conteudo.logradouro);
+    //         document.getElementById('bairro_input').value = (conteudo.bairro);
+    //         document.getElementById('cidade_input').value = (conteudo.localidade);
+    //     } //end if.
+    //     else {
+    //         //CEP não Encontrado.
+    //         limpa_formulário_cep();
+    //         alert("CEP não encontrado.");
+    //     }
+    // }
+
+    // function pesquisacep(valor) {
+
+    //     //Nova variável "cep" somente com dígitos.
+    //     var cep = valor.replace(/\D/g, '');
+
+    //     //Verifica se campo cep possui valor informado.
+    //     if (cep != "") {
+
+    //         //Expressão regular para validar o CEP.
+    //         var validacep = /^[0-9]{8}$/;
+
+    //         //Valida o formato do CEP.
+    //         if (validacep.test(cep)) {
+
+    //             //Preenche os campos com "..." enquanto consulta webservice.
+    //             document.getElementById('logradouro_input').value = "...";
+    //             document.getElementById('bairro_input').value = "...";
+    //             document.getElementById('cidade_input').value = "...";
+
+    //             //Cria um elemento javascript.
+    //             var script = document.createElement('script');
+
+    //             //Sincroniza com o callback.
+    //             script.src = 'https://viacep.com.br/ws/' + cep + '/json/?callback=meu_callback';
+
+    //             //Insere script no documento e carrega o conteúdo.
+    //             document.body.appendChild(script);
+
+    //         } //end if.
+    //         else {
+    //             //cep é inválido.
+    //             limpa_formulário_cep();
+    //             alert("Formato de CEP inválido.");
+    //         }
+    //     } //end if.
+    //     else {
+    //         //cep sem valor, limpa formulário.
+    //         limpa_formulário_cep();
+    //     }
+    // };
+
+    // /*Mascaras*/
+
+    // const iptCep = document.querySelector('cep_input')
+
+    // cep_input.addEventListener('keypress', () => {
+    //     let valorcep = cep_input.value.length
+
+    //     if (valorcep == 5) cep_input.value += '-'
+
+    // }
+    // )
 
 </script>

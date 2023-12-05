@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../js/sessao.js"></script>
+
     <link rel="stylesheet" href="../css/cssDashboard/armazem.css">
     <link rel="stylesheet" href="../css/cssDashboard/menuLateral.css">
     <link rel="stylesheet"
@@ -52,12 +54,11 @@
             <th>Área</th>
             <th>Qtd de Setores</th>
             <th>Localização</th>
-            <th>Ações</th>
         </table>
 
-        <div class="controle">
+        <!-- <div class="controle">
             <button onclick="adicionar()" class="button">Adicionar</button>
-        </div>
+        </div> -->
 
     </div>
 
@@ -69,35 +70,33 @@
 
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
-    var idUsuario = sessionStorage.ID_USUARIO;
+    // function deletar(idArmazem) {
+    //     console.log("Criar função de apagar armazem escolhido - ID" + idArmazem);
+    //     fetch(`/armazens/deletar/${idArmazem}`, {
+    //         method: "DELETE",
+    //         headers: {
+    //             "Content-Type": "application/json"
+    //         }
+    //     }).then(function (resposta) {
 
-    function deletar(idArmazem) {
-        console.log("Criar função de apagar armazem escolhido - ID" + idArmazem);
-        fetch(`/armazens/deletar/${idArmazem}`, {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json"
-            }
-        }).then(function (resposta) {
+    //         if (resposta.ok) {
+    //             window.alert("Armazem deletado com sucesso");
+    //             window.location = "armazem.html"
+    //         } else if (resposta.status == 404) {
+    //             window.alert("Deu 404!");
+    //         } else {
+    //             throw ("Houve um erro ao tentar deletar o armazem! Código da resposta: " + resposta.status);
+    //         }
+    //     }).catch(function (resposta) {
+    //         console.log(`#ERRO: ${resposta}`);
+    //     });
+    // }
 
-            if (resposta.ok) {
-                window.alert("Armazem deletado com sucesso");
-                window.location = "armazem.html"
-            } else if (resposta.status == 404) {
-                window.alert("Deu 404!");
-            } else {
-                throw ("Houve um erro ao tentar deletar o armazem! Código da resposta: " + resposta.status);
-            }
-        }).catch(function (resposta) {
-            console.log(`#ERRO: ${resposta}`);
-        });
-    }
-
-    function adicionar() {
-        setTimeout(() => {
-            window.location = "cadastroArmazem.html";
-        }, "1000");
-    }
+    // function adicionar() {
+    //     setTimeout(() => {
+    //         window.location = "cadastroArmazem.html";
+    //     }, "1000");
+    // }
 
     function atualizarArmazens() {
         fetch("/armazens/listar").then(function (resposta) {
@@ -120,25 +119,25 @@
                         var tdArea = document.createElement("td");
                         var tdQtdSetores = document.createElement("td");
                         var tdLocalizacao = document.createElement("td");
-                        var tdAcoes = document.createElement("td");
-                        var btnDeletar = document.createElement("button");
+                        // var tdAcoes = document.createElement("td");
+                        // var btnDeletar = document.createElement("button");
 
                         tdArmazem.innerHTML = armazem.numeroArmazem;
                         tdArea.innerHTML = armazem.areaArmazem;
                         tdQtdSetores.innerHTML = armazem.qtdSetores;
                         tdLocalizacao.innerHTML= `CEP ${armazem.cep} ${armazem.estado}`;
 
-                        btnDeletar.innerHTML = '<span class="material-symbols-outlined delet">delete</span>';
-                        btnDeletar.className = "delet";
-                        btnDeletar.id = "btnDeletar" + armazem.idArmazem;
-                        btnDeletar.setAttribute("onclick", `deletar(${armazem.idArmazem})`);
+                        // btnDeletar.innerHTML = '<span class="material-symbols-outlined delet">delete</span>';
+                        // btnDeletar.className = "delet";
+                        // btnDeletar.id = "btnDeletar" + armazem.idArmazem;
+                        // btnDeletar.setAttribute("onclick", `deletar(${armazem.idArmazem})`);
 
                         trRegistro.appendChild(tdArmazem);
                         trRegistro.appendChild(tdArea);
                         trRegistro.appendChild(tdQtdSetores);
                         trRegistro.appendChild(tdLocalizacao);
-                        tdAcoes.appendChild(btnDeletar);
-                        trRegistro.appendChild(tdAcoes);
+                        // tdAcoes.appendChild(btnDeletar);
+                        // trRegistro.appendChild(tdAcoes);
 
                         tableArmazens.appendChild(trRegistro);
                     }

@@ -6,29 +6,26 @@ USE TechSolutions;
 
 CREATE TABLE empresa (
 idEmpresa INT PRIMARY KEY AUTO_INCREMENT,
-senha VARCHAR(16) NOT NULL,
-email VARCHAR(100) NOT NULL,
 cnpj CHAR(16) NOT NULL,
 nome VARCHAR(50) NOT NULL,
-telefone CHAR(14) DEFAULT 'Sem telefone'
+telefone CHAR(14) DEFAULT 'Sem telefone',
+email VARCHAR(100) NOT NULL,
+senha VARCHAR(16) NOT NULL
 );
-
-insert into empresa values 
-(null, '12345','emmilyferreiraf946@gmail.com', 12345678912345, 'EmmilyCoffe', '+5511969791506');
 
 CREATE TABLE armazem (
 idArmazem INT PRIMARY KEY AUTO_INCREMENT,
-numeroArmazem INT,
-areaArmazem DECIMAL(12,2),
-qtdSetores INT,
-cep CHAR(9),
+numeroArmazem INT NOT NULL,
+areaArmazem DECIMAL(12,2) NOT NULL,
+qtdSetores INT NOT NULL,
+cep CHAR(9) NOT NULL,
 logradouro VARCHAR(45),
 numero INT,
 complemento VARCHAR(45) DEFAULT 'Sem complemento',
 bairro VARCHAR(45),
 cidade VARCHAR(45),
-estado CHAR(2),
-fkEmpresa INT, 
+estado CHAR(2) NOT NULL,
+fkEmpresa INT NOT NULL, 
 FOREIGN KEY (fkEmpresa) 
 REFERENCES empresa (idEmpresa)
 );
@@ -39,8 +36,8 @@ insert into armazem values
 
 CREATE TABLE setor (
 idSetor INT PRIMARY KEY AUTO_INCREMENT,
-nome VARCHAR(45),
-fkArmazem INT, 
+nome VARCHAR(45) NOT NULL,
+fkArmazem INT NOT NULL, 
 CONSTRAINT fkArmazem FOREIGN KEY (fkArmazem) 
 REFERENCES armazem (idArmazem) ON DELETE CASCADE
 );
@@ -51,8 +48,8 @@ insert into setor values
 
 CREATE TABLE sensor (
 idSensor INT PRIMARY KEY AUTO_INCREMENT,
-modelo VARCHAR(45),
-fkSetor INT, 
+modelo VARCHAR(45) NOT NULL,
+fkSetor INT NOT NULL, 
 CONSTRAINT fkSetor FOREIGN KEY (fkSetor) 
 REFERENCES setor (idSetor) ON DELETE CASCADE
 );
@@ -63,9 +60,9 @@ insert into sensor values
 
 CREATE TABLE registro (
 idRegistro INT AUTO_INCREMENT,
-dado DOUBLE,
-dataHora DATETIME DEFAULT CURRENT_TIMESTAMP,
-fkSensor INT, 
+dado DOUBLE NOT NULL,
+dataHora DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
+fkSensor INT NOT NULL, 
 CONSTRAINT fkSensor FOREIGN KEY (fkSensor) 
 	REFERENCES sensor (idSensor) ON DELETE CASCADE,
 PRIMARY KEY (idRegistro, fkSensor)

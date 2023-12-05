@@ -8,9 +8,6 @@
     <link rel="stylesheet" href="css/cssSite/header.css">
     <link rel="icon" href="assets/iconCafe.png">
     <title>Cadastro | TechSolutions</title>
-
-    <!-- LIB DE ICON -->
-    <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
 </head>
 
 <body>
@@ -50,43 +47,37 @@
             <div class="divisao">
                 <div class="container1">
 
-
-                    <p>
-                        Senha <br>
-                        <input class="input" placeholder=" ********" type="password" id="senha_input"><br>
-                        <span id="botaoVerSenha" class="lnr lnr-eye" onclick="verSenha()"></span>
-                        <span id="alerta_senha"></span>
-                    </p><br>
-
-
-                    <p>
-                        Email <br>
-                        <input class="input" placeholder=" cafe@brasil.com" type="text" id="email_input"><br>
-                        <span id="alerta_email"></span>
-                    </p><br>
                     <p>
                         CNPJ <br>
                         <input class="input" placeholder=" 12.345.678/0009-10" type="text" id="cnpj_input"
                             maxlength="18"><br>
-                        <span id="alerta_cnpj"></span>
                     </p><br>
 
                     <p>
                         Nome da empresa <br>
                         <input class="input" placeholder=" Três Corações" type="text" id="nome_input"><br>
-                        <span id="alerta_nome"></span>
                     </p><br>
 
                     <p>
                         Telefone <br>
                         <input class="input" placeholder=" (11)4455-8899" type="text" id="telefone_input"
                             maxlength="14"><br>
-                        <span id="alerta_telefone"></span>
                     </p><br>
+
+                    <p>
+                        Email <br>
+                        <input class="input" placeholder=" cafe@brasil.com" type="text" id="email_input"><br>
+                    </p><br>
+
+                    <p>
+                        Senha <br>
+                        <input class="input" placeholder=" ********" type="password" id="senha_input"><br>
+                    </p><br>
+
                 </div>
             </div><br>
             <button class="button2" onclick="cadastrar()">Cadastrar-se</button>
-            <a class="link" href="../public/login.html">Já tem cadastro? Faça seu Login</a>
+            <a class="link" href="login.html">Já tem cadastro? Faça seu Login</a>
         </div>
 
     </div>
@@ -126,18 +117,18 @@
 
         //Recupere o valor da nova input pelo nome do id
         // Agora vá para o método fetch logo abaixo
-        var senhaVar = senha_input.value
-        var emailVar = email_input.value;
         var cnpjVar = cnpj_input.value;
         var nomeVar = nome_input.value;
-        var telefoneVar = telefone_input.value
+        var telefoneVar = telefone_input.value;
+        var emailVar = email_input.value;
+        var senhaVar = senha_input.value;
         
         if (
-            senhaVar == "" ||
-            emailVar == "" ||
             cnpjVar == "" ||
             nomeVar == "" ||
-            telefoneVar == "" 
+            telefoneVar == "" ||
+            emailVar == "" ||
+            senhaVar == "" 
         ) {
             cardErro.style.display = "block";
             mensagem_erro.innerHTML =
@@ -158,11 +149,11 @@
             body: JSON.stringify({
                 // crie um atributo que recebe o valor recuperado aqui
                 // Agora vá para o arquivo routes/usuario.js
-                senhaServer: senhaVar, 
-                emailServer: emailVar,
                 cnpjServer: cnpjVar,
                 nomeServer: nomeVar,
-                telefoneServer:  telefoneVar
+                telefoneServer:  telefoneVar,
+                emailServer: emailVar,
+                senhaServer: senhaVar
             }),
         })
             .then(function (resposta) {

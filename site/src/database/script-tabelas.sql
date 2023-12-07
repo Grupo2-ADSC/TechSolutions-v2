@@ -13,6 +13,9 @@ email VARCHAR(100) NOT NULL,
 senha VARCHAR(16) NOT NULL
 );
 
+insert into empresa values
+	(null, '12345678912345', 'Emmily Coffee', '985623476', 'emmily@gmail.com', 123);
+
 CREATE TABLE armazem (
 idArmazem INT PRIMARY KEY AUTO_INCREMENT,
 numeroArmazem INT NOT NULL,
@@ -55,17 +58,13 @@ insert into sensor values
 
 CREATE TABLE registro (
 idRegistro INT AUTO_INCREMENT,
-dado DOUBLE NOT NULL,
+dado FLOAT NOT NULL,
 dataHora DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
 fkSensor INT NOT NULL, 
 CONSTRAINT fkSensor FOREIGN KEY (fkSensor) 
 	REFERENCES sensor (idSensor) ON DELETE CASCADE,
 PRIMARY KEY (idRegistro, fkSensor)
 );
-
-insert into registro (idRegistro, dado, fkSensor) values
-	(null, 66.00, 1),
-    (null, 60.10, 2);
 
 SHOW TABLES;
 

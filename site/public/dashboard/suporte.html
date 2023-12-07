@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/sessao.js"></script>
+
+    <link rel="stylesheet" href="../css/cssDashboard/suporte.css">
+    <link rel="stylesheet" href="../css/cssDashboard/menuLateral.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+</head>
+
+<body>
+    <!-- Inicio de Header -->
+    <div class="header">
+        <div class="container">
+
+            <h1 class="titulo">Suporte</h1>
+
+        </div>
+    </div>
+    <!-- Final de header -->
+
+    <!-- Inicio menu lateral -->
+    <nav id="menuLateral">
+        <div class="container">
+            <p><img id="imgPerfil" src="../assets/imgPerf.png"></p>
+
+            <p>Bem Vindo, <span id="b_usuario"></span></p>
+
+            <div class="container-itens">
+                <div class="item">
+                    <a href="#"><span class="material-symbols-outlined"> monitoring</span> Dashboard</a>
+                </div>
+
+                <div class="item">
+                    <a href="armazem.html"> <span class="material-symbols-outlined">warehouse</span> Armazém</a>
+                </div>
+
+                <div class="item">
+                    <b>
+                        <a href="#"> <span class="material-symbols-outlined">support_agent</span> Suporte</a>
+                    </b>
+                </div>
+
+            </div>
+
+            <div class="buttonSair">
+                <a onclick="limparSessao()"> <span class="material-symbols-outlined">logout</span>Sair</a>
+            </div>
+
+        </div>
+    </nav>
+    <!-- Final Menu Lateral -->
+
+    <!-- Inicio de pipefy -->
+    <div class="containerPipefy">
+        <div class="boxPipefy">
+            <iframe height="300" class="formularioHelpDesk" src='https://app.pipefy.com/public/form/8qci5iEi'
+                frameborder='0'></iframe>
+        </div>
+    </div>
+
+
+</body>
+
+</html>
+<script>
+
+    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+
+</script>

@@ -6,19 +6,20 @@ USE TechSolutions;
 
 CREATE TABLE empresa (
 idEmpresa INT PRIMARY KEY AUTO_INCREMENT,
-cnpj CHAR(16) NOT NULL,
-nome VARCHAR(50) NOT NULL,
+cnpj CHAR(18) NOT NULL,
+nome VARCHAR(45) NOT NULL,
 telefone CHAR(14) NOT NULL,
 email VARCHAR(100) NOT NULL,
 senha VARCHAR(16) NOT NULL
 );
 INSERT INTO empresa (`idEmpresa`, `cnpj`, `nome`, `telefone`, `email`, `senha`) VALUES ('1', '1234567891011132', 'Teste', '11949591340', 'just@gmail.com', 'Justo123#');
+
 CREATE TABLE armazem (
 idArmazem INT PRIMARY KEY AUTO_INCREMENT,
 numeroArmazem INT NOT NULL,
 areaArmazem DECIMAL(12,2) NOT NULL,
 qtdSetores INT NOT NULL,
-cep CHAR(9) NOT NULL,
+cep CHAR(8) NOT NULL,
 estado CHAR(2) NOT NULL,
 fkEmpresa INT NOT NULL, 
 FOREIGN KEY (fkEmpresa) 

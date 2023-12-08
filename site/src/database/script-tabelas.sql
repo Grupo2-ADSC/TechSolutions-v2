@@ -6,8 +6,8 @@ USE TechSolutions;
 
 CREATE TABLE empresa (
 idEmpresa INT PRIMARY KEY AUTO_INCREMENT,
-cnpj CHAR(16) NOT NULL,
-nome VARCHAR(50) NOT NULL,
+cnpj CHAR(18) NOT NULL,
+nome VARCHAR(45) NOT NULL,
 telefone CHAR(14) NOT NULL,
 email VARCHAR(100) NOT NULL,
 senha VARCHAR(16) NOT NULL
@@ -21,7 +21,7 @@ idArmazem INT PRIMARY KEY AUTO_INCREMENT,
 numeroArmazem INT NOT NULL,
 areaArmazem DECIMAL(12,2) NOT NULL,
 qtdSetores INT NOT NULL,
-cep CHAR(9) NOT NULL,
+cep CHAR(8) NOT NULL,
 estado CHAR(2) NOT NULL,
 fkEmpresa INT NOT NULL, 
 FOREIGN KEY (fkEmpresa) 
@@ -30,7 +30,7 @@ REFERENCES empresa (idEmpresa)
 
 /*A empresa precisa ter pelo menos um armazem cadastrado no banco para logar*/
 insert into armazem values 
-(null, 12, 7000, 2, '04836-375','SP', 1);
+(null, 12, 7000, 2, '04836375','SP', 1);
 
 CREATE TABLE setor (
 idSetor INT PRIMARY KEY AUTO_INCREMENT,
@@ -74,18 +74,17 @@ SELECT * FROM setor;
 SELECT * FROM sensor;
 SELECT * FROM registro;
 
-
 SELECT * FROM empresa
 JOIN armazem ON empresa.idEmpresa = armazem.fkEmpresa;
 
 SELECT empresa.nome AS 'Empresa', armazem.* FROM empresa
 JOIN armazem ON empresa.idEmpresa = armazem.fkEmpresa;
 
-SELECT * FROM setor
+SELECT setor.*, sensor.idSensor, sensor.modelo FROM setor
 JOIN sensor ON setor.idSetor = sensor.fkSetor;
 
-SELECT armazem.idArmazem AS 'Armazem', sensor.idSensor, sensor.modelo_sensor FROM armazem
-JOIN sensor ON armazem.idArmazem = sensor.fkArmazem;
+SELECT armazem.idArmazem AS 'Armazem', setor.idSetor as 'Setor' FROM armazem
+JOIN setor ON armazem.idArmazem = setor.fkArmazem;
 
 SELECT * FROM sensor
 JOIN registro ON sensor.idSensor = registro.fkSensor;

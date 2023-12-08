@@ -40,6 +40,8 @@
     flex-direction: column;
     position: absolute;
     display: flex;
+    min-width: 420px;
+    min-height: 420px;
     align-items: center;
     height: fit-content;
     width: 420px;
@@ -48,8 +50,9 @@
     box-shadow: #2c2c2c 10px;
     box-shadow: rgba(0, 0, 0, 0.418) 0px 7px 7px;
     font-family: 'Roboto', sans-serif;
-    font-weight: bolder;
+    font-weight: bolder;  
     padding-bottom: 20px;
+    margin-top: 60px;
 }
 
 p {
@@ -78,7 +81,7 @@ button {
     font-size: 14px;
     text-decoration: none;
     color: black;
-    font-weight: lighter;
+    margin-top: 30px;
 }
 
 #select_estado {
@@ -89,9 +92,31 @@ button {
     width: 220px;
 }
 
+#erro_cnpj,
+#erro_nome,
+#erro_telefone,
+#erro_email,
+#erro_senha {
+    font-family: 'Opens Sans', sans-serif;
+    color: #e6005a;
+    font-weight: lighter;
+    font-size: 12px;
+}
+
+#cadastro_ok {
+   width: 75px;
+}
+
 
 #containderFooter {
     display: block;
+    
+}
+.container1{
+    min-height: 100px;
+    max-height: 500px;
+    min-width: 100px;
+    max-width: 250px;
 }
 
 #rodape {
@@ -148,6 +173,3 @@ li img {
     background-color: #2A1A17;
 }
 
-.back-Rodape {
-    background-color: #2A1A17;
-}

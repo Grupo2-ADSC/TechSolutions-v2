@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/cssSite/faleConosco.css">
     <link rel="stylesheet" href="css/cssSite/header.css">
-    <link rel="icon" href="assets/LogoTechSolutions.png">
+    <link rel="icon" href="./assets/iconCafe.png">
 
 <title>Fale Conosco</title>
 
@@ -33,19 +33,42 @@
         </div>
     </div>
     <div class="divPai">
+
+        <!-- <form action="https://api.staticforms.xyz/submit" method="post">
+
+            <input type="text" name="name" placeholder="Your Name">
+            <input type="text" name="email" placeholder="Your Email" />
+            <textarea name="message"></textarea>
+
+            <input type="text" name="honeypot" style="display:none">
+            <input type="hidden" name="accessKey" value="20ee6ac9-e385-47de-b7f7-f4e2d96d11be">
+            <input type="hidden" name="subject" value="Contact us from - example.com" />
+            <input type="hidden" name="replyTo" value="@">
+            <input type="hidden" name="redirectTo" value="https://example.com/contact/success">
+            <input type="submit" value="Submit" />
+        </form> -->
         
-        <div id="principal">
+        <form action="https://api.staticforms.xyz/submit" method="post" id="principal">
             <br><h1> Fale Conosco</h1> <br>
             
-            <p class="textoInput">Assunto</p>
-            <input class="input" placeholder="Minha duvida é..." type="text" name="" id="minhaDuvida"> <br>
-            <p class="textoInput">Descrição</p> 
-            <input class="input" placeholder="Meu problema/dúvida é...." type="text" name="" id="descicaoDuvida"> <br>
+            <p class="textoInput">Seu Nome</p>
+            <input id="input_duvida" class="input" type="text" name="name" placeholder="Seu nome ..."> <br>
+
             <p class="textoInput">Email</p> 
-            <input class="input" placeholder="Email@email.com.br" type="email" name="" id="emailUsuario"> <br><br>
-            <button class="buttonEnviar"><a href="#"></a> Enviar </button>
-        </div>
+            <input id="input_descricao" class="input" type="text" name="email" placeholder="Your Email" /> <br>
             
+            <p class="textoInput">Sua duvida</p> 
+            <textarea id="input_email" style="width: 26vw; height:10vh ;" placeholder="Sua mensagem..." class="input" name="message"></textarea> <br> <br>
+
+            <input type="text" name="honeypot" style="display:none">
+            <input type="hidden" name="accessKey" value="20ee6ac9-e385-47de-b7f7-f4e2d96d11be">
+            <input type="hidden" name="redirectTo" value="http://127.0.0.1:5500/site/public/faleConosco.html">
+            
+            <button  class="buttonEnviar" type="submit" > Enviar </button>
+            
+            <div id="erro_email"></div>
+
+        </form>
             
         <div id="imgCentroCafe"><img src="./assets/FundoCafé.png" id="img_cafe" alt="Imagem de café fundo site"></div>
     </div>
@@ -60,7 +83,7 @@
                 <li><a href="#"><img href="https://wa.me/+5511949591340?text=Olá, vi seu profile card!" target="_blank" src="assets/whatsapp.png" alt="imagem whatsapp"></a></li>
                 <li><a href="https://github.com/Grupo2-ADSC"><img src="assets/github.png" alt=""></a></li>
             </ul>
-            <br>
+            <br><b>
             <ul id="infos" class="back-Rodape">
                 <li><a href="./Index.html">Home</a></li> -
                 <li><a href="telaFaleConosco.html">Fale Conosco</a></li> -
@@ -73,7 +96,8 @@
             </ul>
             <br>
         
-        <p id="direitos" class="back-Rodape">© 2023 All rights reserved SPTECH - TechSolutions </p>
+        <p id="direitos" class="back-Rodape">© 2023 All rights reserved TechSolutions </p>
+    </b>
     </footer>
 </div>
 

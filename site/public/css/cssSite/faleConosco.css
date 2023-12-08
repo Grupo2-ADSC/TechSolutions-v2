@@ -47,6 +47,16 @@ body{
     height: 35px;
     width: 400px;
 }
+
+#erro_assunto,
+#erro_descricao,
+#erro_email {
+    font-size: 15px;
+    color: red;
+    font-weight: lighter;
+    margin-bottom: 10px;
+}
+
 .buttonEnviar{
     font-family: 'Poppins', sans-serif;
     font-weight: bold;

@@ -23,7 +23,7 @@ function autenticar(req, res) {
                         console.log("resultadoAutenticar[0].empresaId", resultadoAutenticar[0].empresaId)
                         armazemModel.buscarArmazensPorEmpresa(resultadoAutenticar[0].empresaId)
                         .then((resultadoArmazens) => {
-                            if (resultadoArmazens.length > 0) {
+                            if (resultadoArmazens.length >= 0) {
                                 res.json({
                                     empresaId: resultadoAutenticar[0].empresaId,
                                     email: resultadoAutenticar[0].email,

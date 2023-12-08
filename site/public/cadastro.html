@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/cssSite/cadastro.css">
     <link rel="stylesheet" href="css/cssSite/header.css">
-    <link rel="icon" href="assets/iconCafe.png">
+    <link rel="icon" href="./assets/iconCafe.png">
     <title>Cadastro | TechSolutions</title>
 </head>
 
@@ -35,12 +35,6 @@
 
     </div>
 
-    <div class="alerta_erro">
-        <div class="card_erro" id="cardErro">
-            <span id="mensagem_erro"></span>
-        </div>
-    </div>
-
     <div class="background">
         <div class="fundoBranco">
             <h1 class="titulo">Cadastro</h1><br>
@@ -52,31 +46,41 @@
                         <input class="input" placeholder=" 12.345.678/0009-10" type="text" id="cnpj_input"
                             maxlength="18"><br>
                     </p><br>
+                    <div id="erro_cnpj"></div>
 
                     <p>
                         Nome da empresa <br>
                         <input class="input" placeholder=" Três Corações" type="text" id="nome_input"><br>
                     </p><br>
+                    <div id="erro_nome"></div>
 
                     <p>
                         Telefone <br>
                         <input class="input" placeholder=" (11)4455-8899" type="text" id="telefone_input"
                             maxlength="14"><br>
                     </p><br>
+                    <div id="erro_telefone"></div>
 
                     <p>
                         Email <br>
                         <input class="input" placeholder=" cafe@brasil.com" type="text" id="email_input"><br>
                     </p><br>
+                    <div id="erro_email"></div>
 
                     <p>
                         Senha <br>
-                        <input class="input" placeholder=" ********" type="password" id="senha_input"><br>
+                        <input class="input" placeholder=" ********" type="password" id="senha_input"
+                            maxlength="16"><br>
                     </p><br>
+                    <div id="erro_senha"></div>
 
                 </div>
             </div><br>
             <button class="button2" onclick="cadastrar()">Cadastrar-se</button>
+
+            <div id="mensagem_ok">
+            </div>
+
             <a class="link" href="login.html">Já tem cadastro? Faça seu Login</a>
         </div>
 
@@ -86,16 +90,18 @@
 
         <footer id="rodape" class="back-Rodape">
             <ul id="icones" class="back-Rodape">
-                <li><a href="#"><img src="./assets/instagram.png" alt="imagem instagram'"></a></li>
-                <li><a href="#"><img href="https://wa.me/+5511949591340?text=Olá, vi seu profile card!" target="_blank"
-                            src="./assets/whatsapp.png" alt="imagem whatsapp"></a></li>
-                <li><a href="https://github.com/Grupo2-ADSC"><img src="./assets/github.png" alt=""></a></li>
+                <li><a href="#"><img src="assets/instagram.png" alt="imagem instagram'"></a></li>
+                <li><a href="https://wa.me/+5511949591340?text=Olá, vi seu profile card!" target="_blank"><img
+                            src="assets/whatsapp.png" alt="imagem whatsapp"></a></li>
+                <li><a href="https://github.com/Grupo2-ADSC"><img src="assets/github.png" alt=""></a></li>
             </ul>
             <br>
             <ul id="infos" class="back-Rodape">
-                <li><a href="./index.html">Home</a></li> -
-                <li><a href="faleConosco.html">Fale Conosco</a></li> -
-                <li><a href="sobreNos.html">Sobre Nós</a></li>
+
+                <li><a href="./Index.html">Home</a></li> -
+                <li><a href="./faleConosco.html">Fale Conosco</a></li> -
+                <li><a href="./sobreNos.html">Sobre Nós</a></li>
+
             </ul>
             <br>
             <ul id="termos" class="back-Rodape">
@@ -104,8 +110,9 @@
             </ul>
             <br>
 
-            <p id="direitos" class="back-Rodape">© 2023 All rights reserved SPTECH - TechSolutions </p>
+            <p id="direitos" class="back-Rodape">© 2023 All rights reserved TechSolutions </p>
         </footer>
+
     </div>
 
 </body>
@@ -122,24 +129,33 @@
         var telefoneVar = telefone_input.value;
         var emailVar = email_input.value;
         var senhaVar = senha_input.value;
-        
-        if (
-            cnpjVar == "" ||
-            nomeVar == "" ||
-            telefoneVar == "" ||
-            emailVar == "" ||
-            senhaVar == "" 
-        ) {
-            cardErro.style.display = "block";
-            mensagem_erro.innerHTML =
-                "(Mensagem de erro para todos os campos em branco)";
 
-            finalizarAguardar();
-            return false;
-        } else {
-            setInterval(sumirMensagem, 5000);
+
+
+        if (cnpjVar.length < 14 && cnpjVar.length > 14) {
+            erro_cnpj.innerHTML += `O CNPJ deve conter 14 caracteres`;
+        }
+        else if (nomeVar.length < 2) {
+            erro_nome.innerHTML += `O nome deve conter no minímo 2 caracteres`;
+
+        }
+        else if (telefoneVar == 8) {
+
+            erro_telefone.innerHTML += `O telefone deve conter no mínimo 8 digitos`;
         }
 
+        else if (emailVar.indexOf("@") == -1 && emailVar.indexOf(".com") == -1) {
+
+            erro_email.innerHTML += `O email deve conter @ e .com`;
+        }
+
+        else if (senhaVar.length < 8) {
+
+            erro_senha.innerHTML += `Confira se a sua senha contem mais de 8 digitos `;
+        } else if (!/[@$!%*?&]/.test(senhaVar)) {
+            erro_senha.innerHTML += `Confira se sua senha contem carcteres especiais`;
+        } else if (!/[A-Z]/.test(senhaVar)) { erro_senha.innerHTML += `Confira se a sua contem senha letras maiuscula`; }
+else
         // Enviando o valor da nova input
         fetch("/usuarios/cadastrar", {
             method: "POST",
@@ -151,7 +167,7 @@
                 // Agora vá para o arquivo routes/usuario.js
                 cnpjServer: cnpjVar,
                 nomeServer: nomeVar,
-                telefoneServer:  telefoneVar,
+                telefoneServer: telefoneVar,
                 emailServer: emailVar,
                 senhaServer: senhaVar
             }),
@@ -160,9 +176,8 @@
                 console.log("resposta: ", resposta);
 
                 if (resposta.ok) {
-                    cardErro.style.display = "block";
 
-                    mensagem_erro.innerHTML =
+                    mensagem_ok.innerHTML =
                         "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
 
                     setTimeout(() => {
@@ -180,7 +195,31 @@
         return false;
     }
 
-    function sumirMensagem() {
-        cardErro.style.display = "none";
-    }
+
+    // mascara para sobreescrever valores das inputs
+    const input = document.querySelector('input')
+
+    input.addEventListener('keypress', () => {
+        let inputLength = cnpj_input.value.length
+
+        // MAX LENGHT 14  CPF
+        if (inputLength == 2 || inputLength == 6) {
+            input.value += '.'
+        } else if (inputLength == 10) {
+            input.value += '/'
+        }
+        else if (inputLength == 15) input.value += '-'
+    })
+
+    const inputTel = document.querySelector('telefone_input')
+
+    telefone_input.addEventListener('keypress', () => {
+        let valorTelefone = telefone_input.value.length
+
+        if (valorTelefone == 0) telefone_input.value += '('
+        else if (valorTelefone == 3) telefone_input.value += ')'
+        else if (valorTelefone == 8) telefone_input.value += '-'
+
+    })
+
 </script>

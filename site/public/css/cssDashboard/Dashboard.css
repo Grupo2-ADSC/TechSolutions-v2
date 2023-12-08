@@ -6,7 +6,8 @@ body {
   background-attachment: fixed;
   font-family: 'Montserrat', sans-serif;
   background-color: #e7eaf0;
-
+  overflow-x: hidden;
+  position: relative;
 }
 
 /*header*/
@@ -29,7 +30,7 @@ body {
   margin-top: 30px;
   margin-bottom: -30px;
   font-size: 20px;
-  display: none;
+  display: inline-block;
 }
 
 
@@ -37,7 +38,6 @@ body {
 
 .metricas {
   display: flex;
-  display: none;
   margin: 45px;
   text-align: center;
   line-height: 70px;
@@ -148,7 +148,7 @@ body {
 /* graficos */
 .conteudo_metricas_graficos {
   flex-direction: column;
-  display: none;
+  display: flex;
 }
 
 canvas {
@@ -156,9 +156,9 @@ canvas {
 }
 
 canvas {
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
+  -moz-user-select: block;
+  -webkit-user-select: block;
+  -ms-user-select: block;
 }
 
 .container-chart {
@@ -166,7 +166,7 @@ canvas {
   flex-wrap: wrap;
   justify-content: center;
   margin-left: 28%;
-  display: none;
+  display: flex;
 }
 
 .chart-itens {
@@ -257,4 +257,85 @@ canvas {
 .quadro img {
   width: 10px;
   height: 10px;
+}
+
+
+
+
+/* parte do carrousel */
+
+.carousel-container {
+  overflow: hidden;
+  position: relative;
+}
+
+.slide-container {
+  display: flex;
+  flex-direction: row;
+  transition: transform 0.5s ease-in-out;
+}
+
+.card {
+  border-radius: 15px;
+  background-color: #fff;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease-in-out;
+  margin: 0 10px;
+  min-width: 200px;
+  max-width: 250px;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card-content {
+  padding: 20px;
+  text-align: center;
+}
+
+.name {
+  font-size: 18px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.desc {
+  font-size: 14px;
+  color: #707070;
+}
+
+.button {
+  border: none;
+  font-size: 16px;
+  color: #fff;
+  padding: 8px 16px;
+  background-color: cadetblue;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.button:hover {
+  background-color: aquamarine;
+}
+
+.alerta {
+  position: absolute;
+  top: 1rem;
+  right: -100%;
+
+  transition: all 300ms ease-in-out;
+
+  padding: 1rem;
+  background-color: white;
+  border-radius: 5px;
+
+  border-top-width: 2px;
+}
+
+.alert-open {
+  right: 1rem;
 }

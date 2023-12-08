@@ -138,10 +138,105 @@ function deletar(req, res) {
         );
 }
 
+function dadoSensores(req, res) {
+    armazemModel.dadoSensores(req.params.id)
+        .then(result => res.json(result))
+}
+
+function alertasGerais(req, res) {
+    armazemModel.alertasGerais(req.params.id)
+        .then(result => {
+            var response = {
+                critico: [],
+                cuidado: [],
+                atencao: [],
+                ideal: []
+            }
+
+            result.forEach(u => {
+                if(u.umidade <= 20 || u.umidade >= 89) {
+                    response.critico.push(u)
+                } else if(u.umidade <= 41 || u.umidade >= 78) {
+                    response.cuidado.push(u)
+                } else if(u.umidade <= 63 || u.umidade >= 67) {
+                    response.atencao.push(u)
+                } else {
+                    response.ideal.push(u)
+                }
+            });
+
+            res.json(response)
+        })
+}
+
+function getSensoresByArmazem(req, res) {
+    armazemModel.getSensoresByArmazem(req.params.id)
+        .then(result => {
+            res.json(result)
+        })
+}
+
+function getMedidasBySensor(req, res) {
+    armazemModel.getAlertaBySensor(req.params.idSensor, req.params.idArmazem)
+        .then(result => {
+            var response = {
+                critico: [],
+                cuidado: [],
+                atencao: [],
+                ideal: []
+            }
+
+            result.forEach(u => {
+                if(u.umidade <= 20 || u.umidade >= 89) {
+                    response.critico.push(u)
+                } else if(u.umidade <= 41 || u.umidade >= 78) {
+                    response.cuidado.push(u)
+                } else if(u.umidade <= 63 || u.umidade >= 67) {
+                    response.atencao.push(u)
+                } else {
+                    response.ideal.push(u)
+                }
+            });
+
+            res.json(response)
+        })
+}
+
+function getMedidasByArmazem(req, res) {
+    armazemModel.getMedidasByArmazem(req.params.id)
+        .then(result => {
+            var response = {
+                critico: [],
+                cuidado: [],
+                atencao: [],
+                ideal: []
+            }
+
+            result.forEach(u => {
+                if(u.umidade <= 20 || u.umidade >= 89) {
+                    response.critico.push(u)
+                } else if(u.umidade <= 41 || u.umidade >= 78) {
+                    response.cuidado.push(u)
+                } else if(u.umidade <= 63 || u.umidade >= 67) {
+                    response.atencao.push(u)
+                } else {
+                    response.ideal.push(u)
+                }
+            });
+
+            res.json(response)
+        })
+}
+
 module.exports = {
     listar,
     deletar,
     buscarArmazensPorEmpresa,
     cadastrar,
-    cadastrarSetores
+    cadastrarSetores,
+    dadoSensores,
+    alertasGerais,
+    getSensoresByArmazem,
+    getMedidasBySensor,
+    getMedidasByArmazem
 }
